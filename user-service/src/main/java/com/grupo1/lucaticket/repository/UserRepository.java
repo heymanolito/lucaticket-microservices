@@ -1,5 +1,5 @@
 package com.grupo1.lucaticket.repository;
 
-public class User {
+public interface UserRepository {
 
 }
