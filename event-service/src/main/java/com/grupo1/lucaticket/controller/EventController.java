@@ -1,13 +1,5 @@
 package com.grupo1.lucaticket.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.grupo1.lucaticket.adapter.EventAdapter;
@@ -37,6 +32,9 @@ public class EventController {
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private EventAdapter eventAdapter;
 
 	@Operation(summary = "Listado de eventos", description = "Muestra todos los eventos disponibles", tags = {
 			"Eventos" })
@@ -56,12 +54,26 @@ public class EventController {
 	@Operation(summary = "Añade un evento", description = "Sirve para añadir un evento a la base de datos", tags = {
 			"Eventos" })
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Evento añadido correctamente", content = {
+			@ApiResponse(responseCode = "202", description = "Evento añadido correctamente", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
-			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content) })
+			@ApiResponse(responseCode = "400", description = "Error: No se ha podido añadir añadir el evento", content = @Content) })
 	@PostMapping("/add")
 	public Event saveEvent(@RequestBody Event event) {
 		log.info("-----Guardo el Evento");
 		return eventService.saveEvent(event);
+	}
+	
+	
+	@Operation(summary= "Busca un evento", description ="Sirve para buscar un evento en la base de datos dado su id",
+			tags= {"id"})
+	@ApiResponses(value= {
+			@ApiResponse(responseCode = "200", description = "Evento encontrado correctamente", content = {
+					@Content(mediaType ="applicarion/json", schema =@Schema(implementation = Event.class)) }),
+			@ApiResponse(responseCode ="404", description= "Error: No se ha encotrado el evento", content = @Content) })
+	@GetMapping("/{id}")
+	public EventResponse showEventDetails(@PathVariable int id) {
+		log.info("*** filtrado el producto por id "+ id);
+		final Event event= eventService.findById(id).orElseThrow();
+		return eventAdapter.of(event);
 	}
 }
