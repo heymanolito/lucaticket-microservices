@@ -1,6 +1,7 @@
 package com.grupo1.lucaticket.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 
 import org.springframework.data.annotation.Id;
@@ -23,7 +24,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	
 	@Id
-	private Long id;
+	private int id;
 	@Schema(name= "Nombre", description = "Nombre dek evento")
 	private String nombre;
 	@Schema(name= "Descripcion corta", description = "Datos resumidos ")
@@ -37,9 +38,9 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	private LocalDate fechaEvento;
 	@Schema(name= "Hora de evento", description = "Fecha del evento")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-	private LocalDate horaEvento;
+	private LocalTime horaEvento;
 	@Schema(name= "Rango precios", description = "Rango de precios ")
-	private Integer[] rangoPrecios;
+	private Integer[] rangoPrecios = new Integer[2];
 	@Schema(name= "Politica de acceso", description = "Politica de acceso ")
 	private String politicaAcceso;
 	@Schema(name= "Recinto", description = "Recinto del evento")
@@ -54,7 +55,7 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 				", foto='" + foto + '\'' +
 				", fechaEvento=" + fechaEvento +
 				", horaEvento=" + horaEvento +
-				", rangoPrecios=" + Arrays.toString(rangoPrecios) +
+				", rangoPrecios=" + rangoPrecios +
 				", politicaAcceso='" + politicaAcceso + '\'' +
 				", recinto=" + recinto + ']';
 	}
