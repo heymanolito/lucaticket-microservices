@@ -25,6 +25,5 @@ public class OpenApiConfig {
                 .description("API que proveé de datos sobre eventos musicales")
                 .url("https://grupo1.es"));
     }
-
 	
 }

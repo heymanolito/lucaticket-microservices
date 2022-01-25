@@ -7,6 +7,10 @@ import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import org.springframework.data.annotation.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +19,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("events")
 @Schema(name="Evento", description = "Clase evento")
+
 public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	
 	@Id

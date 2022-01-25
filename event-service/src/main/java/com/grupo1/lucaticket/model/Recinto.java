@@ -20,7 +20,6 @@ public @Data @AllArgsConstructor @NoArgsConstructor class Recinto {
 	private String direccion;
 	@Schema(name= "Aforo", description = "Aforo del recinto")
 	private Integer aforo;
-
 	@Override
 	public String toString() {
 		return String.format(
