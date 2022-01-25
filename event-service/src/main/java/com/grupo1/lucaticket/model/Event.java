@@ -1,6 +1,7 @@
 package com.grupo1.lucaticket.model;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 
 import org.springframework.data.annotation.Id;
@@ -37,7 +38,7 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	private LocalDate fechaEvento;
 	@Schema(name= "Hora de evento", description = "Fecha del evento")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-	private LocalDate horaEvento;
+	private LocalTime horaEvento;
 	@Schema(name= "Rango precios", description = "Rango de precios ")
 	private Integer[] rangoPrecios;
 	@Schema(name= "Politica de acceso", description = "Politica de acceso ")

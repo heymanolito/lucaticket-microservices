@@ -1,5 +1,6 @@
 package com.grupo1.lucaticket.adapter;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
