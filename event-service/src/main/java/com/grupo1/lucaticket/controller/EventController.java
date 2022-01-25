@@ -60,8 +60,8 @@ public class EventController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
 			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content) })
 	@PostMapping("/add")
-	public void saveEvent(@RequestBody Event event) {
+	public Event saveEvent(@RequestBody Event event) {
 		log.info("-----Guardo el Evento");
-		eventService.saveEvent(event);
+		return eventService.saveEvent(event);
 	}
 }
