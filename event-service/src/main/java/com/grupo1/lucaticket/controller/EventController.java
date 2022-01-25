@@ -18,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.grupo1.lucaticket.adapter.EventAdapter;
+import com.grupo1.lucaticket.dto.EventResponse;
 import com.grupo1.lucaticket.model.Event;
 import com.grupo1.lucaticket.service.EventService;
 
@@ -48,6 +50,7 @@ public class EventController {
 		List<Event> eventos = eventService.findAll();
 		log.info("Recien buscada la lista de eventos");
 		return ResponseEntity.ok(eventos);
+	
 	}
 
 	@Operation(summary = "Añade un evento", description = "Sirve para añadir un evento a la base de datos", tags = {

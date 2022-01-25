@@ -17,9 +17,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
 @Document("events")
 @Schema(name="Evento", description = "Clase evento")
-
 public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	
 	@Id

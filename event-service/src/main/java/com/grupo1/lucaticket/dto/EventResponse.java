@@ -11,13 +11,12 @@ import java.time.LocalDate;
 @Setter
 public class EventResponse implements Serializable {
 
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-    private String nombre;
-    private LocalDate fechaEvento;
-    private LocalDate horaEvento;
-    private String nombreRecinto;
-    private String ciudadRecinto;
+	@Serial
+	private static final long serialVersionUID = 1L;
+	private String nombre;
+	private LocalDate fechaEvento;
+	private LocalDate horaEvento;
+	private String nombreRecinto;
+	private String ciudadRecinto;
 
 }
