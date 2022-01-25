@@ -1,5 +1,14 @@
 package com.grupo1.lucaticket.service;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.grupo1.lucaticket.model.Event;
+import com.grupo1.lucaticket.repository.EventRepository;
+
+import java.util.List;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,7 +20,6 @@ import org.springframework.stereotype.Service;
 import com.grupo1.lucaticket.controller.EventController;
 import com.grupo1.lucaticket.model.Event;
 import com.grupo1.lucaticket.repository.EventRepository;
-
 
 
 @Service
@@ -27,4 +35,11 @@ public class EventServiceImpl implements EventService{
 		log.info("Antes de hacer la búsqueda");
 		return repository.findAll();
 	}
+
+	@Override
+	public void saveEvent(Event event) {
+		
+		repository.save(event);
+	}
+
 }
