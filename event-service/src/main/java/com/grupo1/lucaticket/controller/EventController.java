@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.grupo1.lucaticket.adapter.EventAdapter;
+import com.grupo1.lucaticket.dto.EventResponse;
 import com.grupo1.lucaticket.model.Event;
 import com.grupo1.lucaticket.service.EventService;
 
@@ -22,11 +24,13 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 	
+	@Autowired 
+	private EventAdapter eventAdapter;
+	
 	@GetMapping()
-	public ResponseEntity<?> listEvents(){
+	public List<EventResponse> listEvents(){
 		
-		List<Event> eventos= eventService.findAll();
-		log.info("Recien buscada la lista de eventos");
-		return ResponseEntity.ok(eventos);
+		final List<Event> all= eventService.findAll();
+		return eventAdapter.of(all);
 	}
 }
