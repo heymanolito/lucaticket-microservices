@@ -29,6 +29,9 @@ public class EventServiceImpl implements EventService{
 	
 	@Autowired
 	EventRepository repository;
+	
+	@Autowired
+	SequenceGeneratedService service;
 
 	@Override
 	public List<Event> findAll() {
@@ -38,6 +41,8 @@ public class EventServiceImpl implements EventService{
 
 	@Override
 	public Event saveEvent(Event event) {
+		
+	event.setId(service.generateSequence(Event.SEQUENCE_NAME));	
 		
 		return repository.save(event);
 	}

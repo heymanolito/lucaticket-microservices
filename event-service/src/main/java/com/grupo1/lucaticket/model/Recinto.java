@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Document
+@Document("recintos")
 @Schema(name="Recinto", description = "Clase recinto")
 public @Data @AllArgsConstructor @NoArgsConstructor class Recinto {
 	

@@ -2,13 +2,10 @@ package com.grupo1.lucaticket.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 
 import org.springframework.data.annotation.Id;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -16,16 +13,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Document("events")
+@Document(collection = "events")
 @Schema(name="Evento", description = "Clase evento")
 public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	
+	@Transient
+	public static final String SEQUENCE_NAME = "events_sequence";
+	
 	@Id
 	private int id;
-	@Schema(name= "Nombre", description = "Nombre dek evento")
+	@Schema(name= "Nombre", description = "Nombre del evento")
 	private String nombre;
 	@Schema(name= "Descripcion corta", description = "Datos resumidos ")
 	private String descripcionCorta;
