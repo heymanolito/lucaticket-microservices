@@ -1,6 +1,7 @@
 package com.grupo1.lucaticket.controller;
 
 import com.grupo1.lucaticket.adapter.EventAdapter;
+import com.grupo1.lucaticket.dto.EventResponse;
 import com.grupo1.lucaticket.model.Event;
 import com.grupo1.lucaticket.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,9 +30,6 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @Autowired
-    private EventAdapter eventAdapter;
-
     @Operation(summary = "Listado de eventos", description = "Muestra todos los eventos disponibles", tags = {
             "Eventos"})
     @ApiResponses(value = {
@@ -40,11 +38,8 @@ public class EventController {
             @ApiResponse(responseCode = "404", description = "Error: No hay eventos", content = @Content)})
     @GetMapping()
     public ResponseEntity<?> listEvents() {
-
-        List<Event> eventos = eventService.findAll();
-        log.info("Recien buscada la lista de eventos");
-        return ResponseEntity.ok(eventos);
-
+        List<EventResponse> result = eventService.findAll();
+        return ResponseEntity.ok(result);
     }
 
     @Operation(summary = "Añade un evento",
