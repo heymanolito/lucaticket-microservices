@@ -4,6 +4,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -13,14 +18,23 @@ public @Data
 @NoArgsConstructor
 class Recinto {
 
+	@Id
     private Long id;
+	@NotEmpty
+	@Size(min=3)
     @Schema(name = "Nombre", description = "Nombre del recinto ")
     private String nombre;
-    @Schema(name = "Foto", description = "Foto del recinto ")
+	@NotEmpty
+	@Size(min=3)
+	@Schema(name = "Ciudad", description = "Ciudad del recinto ")
     private String ciudad;
-    @Schema(name = "Direccion", description = "Direccion del recinto ")
+	@NotEmpty
+	@Size(min=3)
+	@Schema(name = "Direccion", description = "Direccion del recinto ")
     private String direccion;
-    @Schema(name = "Aforo", description = "Aforo del recinto")
+	@NotEmpty
+	@Size(min=3)
+	@Schema(name = "Aforo", description = "Aforo del recinto")
     private Integer aforo;
 
     @Override

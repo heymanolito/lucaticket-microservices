@@ -24,5 +24,9 @@ public class UserServiceImpl implements UserService{
 		log.info("Despues de crear el juego");
 	}
 	
+	public boolean doesMailExists(User user) {
+		log.info("Antes de encontrar el mail");
+		return repository.findByMail(user.getMail()) != null;
+	}
 	
 }

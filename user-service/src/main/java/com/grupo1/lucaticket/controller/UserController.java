@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.grupo1.lucaticket.exception.MailAlreadyExistsException;
 import com.grupo1.lucaticket.model.User;
 import com.grupo1.lucaticket.service.UserService;
 
@@ -34,8 +35,20 @@ public class UserController {
 
 			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content) })
 	@PostMapping("/add")
-	public void saveEvent(@RequestBody User user) {
-		userService.saveUser(user);
-		log.info("***Usuario guardado");
+	public void saveUser(@RequestBody User user) {
+
+		try {
+			if (userService.doesMailExists(user) == false) {
+				log.info("Si no existe el mail");
+				userService.saveUser(user);
+				log.info("***Usuario guardado");
+			} else {
+				log.info("Si existe el mail");
+				throw new MailAlreadyExistsException();
+			}
+		} catch (MailAlreadyExistsException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
