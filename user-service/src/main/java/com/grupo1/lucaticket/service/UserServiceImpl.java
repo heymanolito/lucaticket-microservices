@@ -18,10 +18,9 @@ public class UserServiceImpl implements UserService{
 	UserRepository repository;
 
 	@Override
-	public void saveUser(User user) {
-		log.info("Antes de crear el juego");
-		repository.save(user);
-		log.info("Despues de crear el juego");
+	public User saveUser(User user) {
+		log.info("Antes de crear el user");
+		return repository.save(user);
 	}
 	
 	public boolean doesMailExists(User user) {

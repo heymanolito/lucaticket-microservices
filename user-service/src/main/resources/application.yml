@@ -1,6 +1,8 @@
 ### Spring properties
-# Service registers under this name
+
 spring:
+
+# Service registers under this name
   application:
     name: event
   config:
@@ -9,6 +11,15 @@ spring:
       config:
         uri: http://localhost:8089
 
+# DATA SOURCE
+  datasource:
+    url: jdbc:mysql://localhost:3306/userdb?useUnicode=yes&characterEncoding=UTF-8
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
 
 # Discovery Server Access
 eureka:
@@ -23,6 +34,7 @@ server:
   error:
     whitelabel:
       enabled: false
+
 
 # tatata
 

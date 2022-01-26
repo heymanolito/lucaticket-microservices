@@ -1,13 +1,13 @@
 package com.grupo1.lucaticket.controller;
 
-
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,27 +35,26 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@Operation(summary = "Añade un evento", description = "Sirve para añadir un evento a la base de datos", tags = {
-			"Eventos" })
+	@Operation(summary = "Añade un usuario", description = "Sirve para añadir un usuario a la base de datos", tags = {
+			"Usuarios" })
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Evento añadido correctamente", content = {
+			@ApiResponse(responseCode = "200", description = "Usuario añadido correctamente", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
 
-			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content) })
+			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el usuario", content = @Content) })
 	@PostMapping("/add")
-	public void saveUser(@RequestBody User user) {
+	public ResponseEntity<User> saveUser(@RequestBody User user) throws MailAlreadyExistsException {
 
-		try {
-			if (userService.doesMailExists(user) == false) {
-				log.info("Si no existe el mail");
-				userService.saveUser(user);
-				log.info("***Usuario guardado");
-			} else {
-				log.info("Si existe el mail");
-				throw new MailAlreadyExistsException();
-			}
-		} catch (MailAlreadyExistsException e) {
-			e.printStackTrace();
+		if (userService.doesMailExists(user) == false) {
+			log.info("Si no existe el mail");
+			User saved = userService.saveUser(user);
+			log.info("***Usuario guardado");
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId())
+					.toUri();
+			return ResponseEntity.created(location).build();
+		} else {
+			log.info("Si existe el mail");
+			throw new MailAlreadyExistsException();
 		}
 
 	}

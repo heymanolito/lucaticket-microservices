@@ -1,4 +1,4 @@
-create database user;
+create database userdb;
 use userdb;
 
 CREATE TABLE `users`
