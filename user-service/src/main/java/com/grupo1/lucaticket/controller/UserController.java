@@ -35,13 +35,13 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@Operation(summary = "Añade un evento", description = "Sirve para añadir un evento a la base de datos", tags = {
-			"Eventos" })
+	@Operation(summary = "Añade un evento", description = "Sirve para añadir un usuario a la base de datos", tags = {
+			"User" })
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Evento añadido correctamente", content = {
+			@ApiResponse(responseCode = "200", description = "Usuario añadido correctamente", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
 
-			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content) })
+			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el usuario", content = @Content) })
 	@PostMapping("/add")
 	public void saveUser(@RequestBody User user) {
 
