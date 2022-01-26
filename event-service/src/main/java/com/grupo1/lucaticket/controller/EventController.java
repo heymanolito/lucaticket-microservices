@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @Controller
@@ -50,8 +53,17 @@ public class EventController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class))}),
             @ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content)})
     @PostMapping("/add")
-    public void saveEvent(@RequestBody Event event) {
-        log.info("-----Guardo el Evento");
-        eventService.saveEvent(event);
-    }
+	public ResponseEntity<Event> create(@Valid @RequestBody Event event) {
+		log.info("------ create (POST)");
+		Event saved = eventService.saveEvent(event);
+		log.info("------ Evento guardado (POST)");
+
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(saved.getId())
+				.toUri();
+
+		return ResponseEntity.created(location).build();
+	}
 }

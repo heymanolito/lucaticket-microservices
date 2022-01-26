@@ -18,7 +18,7 @@ public class OpenApiConfig {
                         .description("Documentación de la API Eventos")
                         .version("v1.0")
                         .contact(new Contact().name("Grupo1").
-                                url("https://Grupo1.es").email("Grupo1@elmejor.es"))
+                                url("https://grupo1.es").email("grupo1@elmejor.es"))
                         .license(new License().name("LICENSE").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
                         .description("API que proveé de datos sobre eventos musicales")
