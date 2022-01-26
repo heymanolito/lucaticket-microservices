@@ -6,8 +6,8 @@ spring:
   config:
     import: 'optional:configserver:'
   cloud:
-    config:
-      uri: http://localhost:8089
+      config:
+        uri: http://localhost:8089
 
 
 # Discovery Server Access
@@ -18,7 +18,7 @@ eureka:
 
 # HTTP Server (Tomcat) Port
 server:
-  port: 8091
+  port: 8092
   # Disable Spring Boot's "Whitelabel" default error page, so we can use our own
   error:
     whitelabel:

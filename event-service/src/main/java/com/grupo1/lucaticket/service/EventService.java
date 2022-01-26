@@ -1,14 +1,18 @@
 package com.grupo1.lucaticket.service;
 
-import java.util.List;
-
+import com.grupo1.lucaticket.dto.EventResponse;
 import com.grupo1.lucaticket.model.Event;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface EventService {
 
 
-	public Event saveEvent(Event event);
+    Event saveEvent(Event event);
 
-	List<Event> findAll();
+    List<EventResponse> findAll();
+
+    Optional<Event> findById(int id);
 
 }
