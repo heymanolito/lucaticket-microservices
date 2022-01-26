@@ -50,7 +50,7 @@ public class EventController {
 		List<Event> eventos = eventService.findAll();
 		log.info("Recien buscada la lista de eventos");
 		return ResponseEntity.ok(eventos);
-	
+
 	}
 
 	@Operation(summary = "Añade un evento", description = "Sirve para añadir un evento a la base de datos", tags = {

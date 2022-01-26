@@ -24,7 +24,7 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	
 	@Id
 	private Long id;
-	@Schema(name= "Nombre", description = "Nombre dek evento")
+	@Schema(name= "Nombre", description = "Nombre del evento")
 	private String nombre;
 	@Schema(name= "Descripcion corta", description = "Datos resumidos ")
 	private String descripcionCorta;
