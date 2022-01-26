@@ -44,5 +44,8 @@ public class EventServiceImpl implements EventService {
         return repository.findById(id);
     }
 
+    public void deleteAll() {
+        repository.deleteAll();
+    }
 
 }

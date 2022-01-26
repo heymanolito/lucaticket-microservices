@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface EventService {
 
-
     Event saveEvent(Event event);
 
     List<EventResponse> findAll();
 
     Optional<Event> findById(int id);
 
+    void deleteAll();
 }

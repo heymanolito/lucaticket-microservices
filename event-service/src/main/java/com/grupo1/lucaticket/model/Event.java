@@ -3,6 +3,8 @@ package com.grupo1.lucaticket.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import lombok.*;
+import lombok.experimental.Tolerate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,19 +12,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
 @Document(collection = "events")
 @Schema(name="Evento", description = "Clase evento")
-public @Data @NoArgsConstructor @AllArgsConstructor class Event {
+public @Data @NoArgsConstructor @AllArgsConstructor
+class Event {
 	
 	@Transient
 	public static final String SEQUENCE_NAME = "events_sequence";
-	
-	@Id
 	private int id;
 	@Schema(name= "Nombre", description = "Nombre del evento")
 	private String nombre;
