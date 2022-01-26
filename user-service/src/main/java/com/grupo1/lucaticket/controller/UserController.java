@@ -1,7 +1,6 @@
 package com.grupo1.lucaticket.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

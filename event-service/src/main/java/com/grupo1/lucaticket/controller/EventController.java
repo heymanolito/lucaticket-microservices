@@ -25,64 +25,56 @@ import java.util.List;
 @RequestMapping("/events")
 public class EventController {
 
-    private static final Logger log = LoggerFactory.getLogger(EventController.class);
+	private static final Logger log = LoggerFactory.getLogger(EventController.class);
 
-    @Autowired
-    private EventService eventService;
+	@Autowired
+	private EventService eventService;
 
-    @Operation(summary = "Listado de eventos", description = "Muestra todos los eventos disponibles", tags = {
-            "Eventos"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Mostrados eventos", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class))}),
-            @ApiResponse(responseCode = "404", description = "Error: No hay eventos", content = @Content)})
-    @GetMapping()
-    public ResponseEntity<?> listEvents() {
-        List<EventResponse> result = eventService.findAll();
-        return ResponseEntity.ok(result);
-    }
+	@Operation(summary = "Listado de eventos", description = "Muestra todos los eventos disponibles", tags = {
+			"Eventos" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Mostrados eventos", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+			@ApiResponse(responseCode = "404", description = "Error: No hay eventos", content = @Content) })
+	@GetMapping()
+	public ResponseEntity<?> listEvents() {
+		List<EventResponse> result = eventService.findAll();
+		return ResponseEntity.ok(result);
+	}
 
-    @Operation(summary = "Añade un evento",
-            description = "Sirve para añadir un evento a la base de datos",
-            tags = {"Eventos"})
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Evento añadido correctamente",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Event.class))}),
-            @ApiResponse(responseCode = "404",
-                    description = "Error: No se ha podido añadir añadir el evento",
-                    content = @Content)})
+	@Operation(summary = "Añade un evento", description = "Sirve para añadir un evento a la base de datos", tags = {
+			"Eventos" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Evento añadido correctamente", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content) })
 
-    @PostMapping("/add")
-    public ResponseEntity<Event> create(@Valid @RequestBody Event event) {
-        log.info("------ create (POST)");
-        Event saved = eventService.saveEvent(event);
-        log.info("------ Evento guardado (POST)");
+	@PostMapping("/add")
+	public ResponseEntity<Event> create(@Valid @RequestBody Event event) {
+		log.info("------ create (POST)");
+		Event saved = eventService.saveEvent(event);
+		log.info("------ Evento guardado (POST)");
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(saved.getId())
-                .toUri();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId())
+				.toUri();
 
-        return ResponseEntity.created(location).build();
-    }
+		return ResponseEntity.created(location).build();
+	}
 
-    @Operation(summary = "Busca un evento", description = "Sirve para buscar un evento en la base de datos dado su id",
-            tags = {"id"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Evento encontrado correctamente", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class))}),
-            @ApiResponse(responseCode = "404", description = "Error: No se ha encotrado el evento", content = @Content)})
+	@Operation(summary = "Busca un evento", description = "Sirve para buscar un evento en la base de datos dado su id", tags = {
+			"id" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Evento encontrado correctamente", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado el evento", content = @Content) })
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> showEventDetails(@PathVariable int id) {
-        Event found = eventService.findById(id).orElseThrow();
-        log.info("Antes de encontrar el evento");
-        return ResponseEntity.ok(found);
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<?> showEventDetails(@PathVariable int id) {
+		Event found = eventService.findById(id).orElseThrow();
+		log.info("Antes de encontrar el evento");
+		return ResponseEntity.ok(found);
+	}
+
 
 
 }

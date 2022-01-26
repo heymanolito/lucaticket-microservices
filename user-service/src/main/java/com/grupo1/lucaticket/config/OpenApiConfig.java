@@ -20,7 +20,7 @@ public class OpenApiConfig {
                         url("https://Grupo1.es").email("Grupo1@elmejor.es"))
                 .license(new License().name("LICENSE").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
-                .description("API que proveé datos sobre usuarios")
+                .description("API que aporta datos sobre usuarios")
                 .url("https://grupo1.es"));
     
     }
