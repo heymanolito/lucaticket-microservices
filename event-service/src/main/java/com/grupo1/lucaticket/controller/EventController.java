@@ -1,5 +1,6 @@
 package com.grupo1.lucaticket.controller;
 
+import com.grupo1.lucaticket.adapter.EventAdapter;
 import com.grupo1.lucaticket.model.Event;
 import com.grupo1.lucaticket.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,10 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -30,6 +28,9 @@ public class EventController {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private EventAdapter eventAdapter;
 
     @Operation(summary = "Listado de eventos", description = "Muestra todos los eventos disponibles", tags = {
             "Eventos"})
@@ -46,24 +47,47 @@ public class EventController {
 
     }
 
-    @Operation(summary = "Añade un evento", description = "Sirve para añadir un evento a la base de datos", tags = {
-            "Eventos"})
+    @Operation(summary = "Añade un evento",
+            description = "Sirve para añadir un evento a la base de datos",
+            tags = {"Eventos"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Evento añadido correctamente", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class))}),
-            @ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content)})
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Evento añadido correctamente",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Event.class))}),
+            @ApiResponse(responseCode = "404",
+                    description = "Error: No se ha podido añadir añadir el evento",
+                    content = @Content)})
+
     @PostMapping("/add")
-	public ResponseEntity<Event> create(@Valid @RequestBody Event event) {
-		log.info("------ create (POST)");
-		Event saved = eventService.saveEvent(event);
-		log.info("------ Evento guardado (POST)");
+    public ResponseEntity<Event> create(@Valid @RequestBody Event event) {
+        log.info("------ create (POST)");
+        Event saved = eventService.saveEvent(event);
+        log.info("------ Evento guardado (POST)");
 
-		URI location = ServletUriComponentsBuilder
-				.fromCurrentRequest()
-				.path("/{id}")
-				.buildAndExpand(saved.getId())
-				.toUri();
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(saved.getId())
+                .toUri();
 
-		return ResponseEntity.created(location).build();
-	}
+        return ResponseEntity.created(location).build();
+    }
+
+    @Operation(summary = "Busca un evento", description = "Sirve para buscar un evento en la base de datos dado su id",
+            tags = {"id"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Evento encontrado correctamente", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class))}),
+            @ApiResponse(responseCode = "404", description = "Error: No se ha encotrado el evento", content = @Content)})
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> showEventDetails(@PathVariable int id) {
+        Event found = eventService.findById(id).orElseThrow();
+        log.info("Antes de encontrar el evento");
+        return ResponseEntity.ok(found);
+    }
+
+
 }
