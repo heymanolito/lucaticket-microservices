@@ -40,12 +40,18 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Optional<Event> findById(int id) {
-        log.info("Antes de encontrar el evento por id");
+        log.info("***** Antes de encontrar el evento por id");
         return repository.findById(id);
     }
 
     public void deleteAll() {
         repository.deleteAll();
     }
+
+	@Override
+	public List<EventResponse> findByGenero(String genero) {
+		log.info("******* Antes de filtrar por genero");
+		return eventAdapter.of(repository.findByGenero(genero));
+	}
 
 }

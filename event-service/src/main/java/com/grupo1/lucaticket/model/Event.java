@@ -26,7 +26,7 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	public static final String SEQUENCE_NAME = "events_sequence";
 	
 	@Id
-	private Long id;
+	private int id;
 	@NotEmpty
 	@Size(min=3)
 	@Schema(name= "Nombre", description = "Nombre del evento")
@@ -61,6 +61,10 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	@NotEmpty
 	@Schema(name= "Recinto", description = "Recinto del evento")
 	private Recinto recinto;
+	@NotEmpty
+	@Size(min=4)
+	@Schema(name ="Genero", description="Genero musical del evento")
+	private String genero;
 
 	@Override
 	public String toString() {
@@ -73,6 +77,7 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 				", horaEvento=" + horaEvento +
 				", rangoPrecios=" + rangoPrecios +
 				", politicaAcceso='" + politicaAcceso + '\'' +
-				", recinto=" + recinto + ']';
+				", recinto=" + recinto + ']'+
+				", genero=" + genero + ']';
 	}
 }
