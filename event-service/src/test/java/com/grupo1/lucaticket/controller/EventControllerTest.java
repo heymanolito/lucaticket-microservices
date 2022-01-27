@@ -49,7 +49,7 @@ public class EventControllerTest {
     @Test
     public void shouldAddNewEvent() {
         Integer[] rangoPrecios = {10, 20};
-        Recinto recinto = new Recinto(1L, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+        Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
         Event event = new Event(5, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(), rangoPrecios, "hola", recinto);
         given()
                 .baseUri(BASE_URL)

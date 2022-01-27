@@ -19,7 +19,7 @@ public @Data
 class Recinto {
 
 	@Id
-    private Long id;
+    private int id;
 	@NotEmpty
 	@Size(min=3)
     @Schema(name = "Nombre", description = "Nombre del recinto ")

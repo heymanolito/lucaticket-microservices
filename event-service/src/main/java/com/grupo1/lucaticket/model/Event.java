@@ -24,9 +24,9 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	
 	@Transient
 	public static final String SEQUENCE_NAME = "events_sequence";
-	
+
 	@Id
-	private Long id;
+	private int id;
 	@NotEmpty
 	@Size(min=3)
 	@Schema(name= "Nombre", description = "Nombre del evento")

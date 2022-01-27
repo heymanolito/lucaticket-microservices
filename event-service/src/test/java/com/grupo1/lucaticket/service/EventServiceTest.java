@@ -32,7 +32,7 @@ public class EventServiceTest {
     void shouldAddEntryToDatabase() {
         // Given
         Integer[] rangoPrecios = {10, 20};
-        Recinto recinto = new Recinto(1L, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+        Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
         Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(), rangoPrecios, "hola", recinto);
         //When
         serviceTest.saveEvent(event);
