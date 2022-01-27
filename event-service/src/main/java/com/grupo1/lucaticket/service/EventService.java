@@ -15,4 +15,6 @@ public interface EventService {
     Optional<Event> findById(int id);
 
     void deleteAll();
+    
+    List<EventResponse> findByNombre(String nombre);
 }

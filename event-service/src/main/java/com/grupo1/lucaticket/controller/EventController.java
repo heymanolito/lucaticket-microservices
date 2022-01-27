@@ -75,6 +75,19 @@ public class EventController {
 		return ResponseEntity.ok(found);
 	}
 
+	@Operation(summary = "Busca un evento que incluya cierta palabra", description = "Sirve para buscar una lista de eventos en la base de datos dado un nombre", tags = {
+			"nombre" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Eventos encontrados correctamente", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningún evento", content = @Content) })
 
+	@GetMapping("/nombre")
+	public ResponseEntity<?> findByNombre(String nombre) {
+		log.info("Antes de encontrar los eventos");
+		List<EventResponse> found = eventService.findByNombre(nombre);
+		log.info("Después de encontrar los eventos");
+		return ResponseEntity.ok(found);
+	}
 
 }

@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +50,12 @@ public class EventServiceImpl implements EventService {
 
     public void deleteAll() {
         repository.deleteAll();
+    }
+    
+    @Override
+    public List<EventResponse> findByNombre(String nombre){
+    	log.info("Antes de encontrar el evento por nombre");
+    	return eventAdapter.of(repository.findByNombre(nombre));
     }
 
 }
