@@ -33,7 +33,9 @@ public class EventServiceTest {
         // Given
         Integer[] rangoPrecios = {10, 20};
         Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
         Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(), rangoPrecios, "hola", recinto, "Copla");
+
         //When
         serviceTest.saveEvent(event);
         int expected = 1;

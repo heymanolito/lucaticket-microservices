@@ -8,7 +8,10 @@ spring:
   cloud:
     config:
       uri: http://localhost:8089
-
+  data:
+    mongodb:
+      uri: mongodb+srv://admin:admin@proyecto-lucaticket.jief6.mongodb.net/events?retryWrites=true&w=majority
+      database: events
 
 # Discovery Server Access
 eureka:
@@ -24,5 +27,4 @@ server:
     whitelabel:
       enabled: false
 
-# tatata
 

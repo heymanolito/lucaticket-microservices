@@ -25,16 +25,21 @@ public class EventServiceImpl implements EventService {
     EventAdapter eventAdapter;
 
     @Autowired
+    SequenceGeneratedService IDGenerationService;
+
+    @Autowired
     EventRepository repository;
+
 
     @Override
     public List<EventResponse> findAll() {
-        log.info("Hola que tal estas soy merche");
+        log.info("--- Dentro del método findAll()");
         return eventAdapter.of(repository.findAll());
     }
 
     @Override
     public Event saveEvent(Event event) {
+        event.setId(IDGenerationService.generateSequence(Event.SEQUENCE_NAME));
         return repository.save(event);
     }
 

@@ -24,7 +24,7 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	
 	@Transient
 	public static final String SEQUENCE_NAME = "events_sequence";
-	
+
 	@Id
 	private int id;
 	@NotEmpty
