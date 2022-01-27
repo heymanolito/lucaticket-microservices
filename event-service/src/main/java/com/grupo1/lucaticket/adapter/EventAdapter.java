@@ -12,11 +12,13 @@ public class EventAdapter {
 
     public EventResponse of(Event event) {
         EventResponse eventResponse = new EventResponse();
+        eventResponse.setId(event.getId());
         eventResponse.setCiudadRecinto(event.getRecinto().getCiudad());
         eventResponse.setFechaEvento(event.getFechaEvento());
         eventResponse.setHoraEvento(event.getHoraEvento());
         eventResponse.setNombre(event.getNombre());
         eventResponse.setNombreRecinto(event.getRecinto().getNombre());
+        eventResponse.setGenero(event.getGenero());
         return eventResponse;
     }
 
