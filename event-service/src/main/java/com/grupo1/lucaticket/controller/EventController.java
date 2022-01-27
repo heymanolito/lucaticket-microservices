@@ -1,25 +1,31 @@
 package com.grupo1.lucaticket.controller;
 
-import com.grupo1.lucaticket.adapter.EventAdapter;
-import com.grupo1.lucaticket.dto.EventResponse;
-import com.grupo1.lucaticket.model.Event;
-import com.grupo1.lucaticket.service.EventService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import java.net.URI;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.util.List;
+import com.grupo1.lucaticket.dto.EventResponse;
+import com.grupo1.lucaticket.model.Event;
+import com.grupo1.lucaticket.service.EventService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @Controller
 @RequestMapping("/events")
@@ -70,9 +76,26 @@ public class EventController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> showEventDetails(@PathVariable int id) {
+		log.info("**** Recien entrado");
 		Event found = eventService.findById(id).orElseThrow();
 		log.info("Antes de encontrar el evento");
 		return ResponseEntity.ok(found);
+	}
+	
+	@Operation(summary = "Busca una lista de eventos", description = "Sirve para filtrar la lista de eventos en la base de datos dado su genero", tags = {
+	"genero" })
+@ApiResponses(value = {
+	@ApiResponse(responseCode = "200", description = "Eventos encontrados correctamente", content = {
+			@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+	@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este genero", content = @Content) })
+
+	@GetMapping("/genero/{genero}")
+	public ResponseEntity<?> findByGenero(@PathVariable String genero){
+		log.info("Antes de encontrar los eventos por genero");
+		List<EventResponse> result= eventService.findByGenero(genero);
+		log.info("Después de encontrar los eventos");
+		return ResponseEntity.ok(result);
+		
 	}
 
 	@Operation(summary = "Busca un evento que incluya cierta palabra", description = "Sirve para buscar una lista de eventos en la base de datos dado un nombre", tags = {
@@ -82,12 +105,12 @@ public class EventController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
 			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningún evento", content = @Content) })
 
-	@GetMapping("/nombre")
-	public ResponseEntity<?> findByNombre(String nombre) {
+	@GetMapping("/nombre/{nombre}")
+	public ResponseEntity<?> findByNombre(@PathVariable String nombre) {
 		log.info("Antes de encontrar los eventos");
-		List<EventResponse> found = eventService.findByNombre(nombre);
+		List<EventResponse> result = eventService.findByNombre(nombre);
 		log.info("Después de encontrar los eventos");
-		return ResponseEntity.ok(found);
+		return ResponseEntity.ok(result);
 	}
 
 }

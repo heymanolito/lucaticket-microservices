@@ -1,12 +1,11 @@
 package com.grupo1.lucaticket.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import java.util.List;
 
-import com.grupo1.lucaticket.model.Event;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import java.util.List;
-import java.util.Optional;
+import com.grupo1.lucaticket.model.Event;
 
 
 public interface EventRepository extends MongoRepository<Event, Integer> {
@@ -14,4 +13,7 @@ public interface EventRepository extends MongoRepository<Event, Integer> {
 	@Query("{ $text: { $search: \"?0\" } }")
 	List<Event> findByNombre(String nombre); 
 	
+	@Query("{ 'genero' : ?0 }")
+	List<Event> findByGenero(String genero);
+
 }

@@ -31,6 +31,20 @@ public class EventControllerTest {
                 .prettyPrint();
 
     }
+    
+    @DisplayName("GET | FILTRAR EVENTOS POR GENERO")
+    @Test
+    void shouldGetEventListFiltredByGenero() {
+        RestAssured.given()
+                .baseUri(BASE_URL)
+                .log().everything()
+                .contentType(ContentType.JSON)
+                .pathParam("genero", "copla")
+                .get(EVENTS_BY_GENERO)
+                .getBody()
+                .prettyPrint();
+
+    }
 
     @DisplayName("GET | LISTAR EVENTOS POR ID")
     @Test
@@ -50,7 +64,9 @@ public class EventControllerTest {
     public void shouldAddNewEvent() {
         Integer[] rangoPrecios = {10, 20};
         Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
-        Event event = new Event(5, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(), rangoPrecios, "hola", recinto);
+
+        Event event = new Event(0, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(), rangoPrecios, "hola", recinto,"copla");
+
         given()
                 .baseUri(BASE_URL)
                 .log().everything()
