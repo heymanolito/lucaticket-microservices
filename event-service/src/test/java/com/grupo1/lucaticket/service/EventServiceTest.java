@@ -88,5 +88,30 @@ public class EventServiceTest {
 		assertThat(expected).isEqualTo(lista.size());
 		
 	}
+	
+	@Test
+	void shouldDeleteAnEventById() {
+		//Given
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Punk");
+		//When 
+		List<EventResponse> lista = serviceTest.findAll();
+		int inicial = lista.size();
+		serviceTest.saveEvent(event);
+		List<EventResponse> lista2 = serviceTest.findAll();
+		int sizeAntesDeEliminar = lista2.size();
+		serviceTest.delete(event);
+		int sizeDespues = lista.size();
+		
+		//Then
+		System.out.println(inicial);
+		System.out.println(sizeAntesDeEliminar);
+		System.out.println(sizeDespues);
+		
+		assertThat(sizeAntesDeEliminar).isEqualTo( sizeDespues +1);
+	}
 
 }
