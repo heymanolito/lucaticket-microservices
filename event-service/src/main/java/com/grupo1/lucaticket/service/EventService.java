@@ -21,4 +21,6 @@ public interface EventService {
     List<EventResponse> findByGenero(String genero);
 
     void delete(Event event);
+
+	void updateEvent(Event event);
 }

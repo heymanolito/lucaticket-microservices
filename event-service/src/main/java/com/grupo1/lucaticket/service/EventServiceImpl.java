@@ -69,5 +69,12 @@ public class EventServiceImpl implements EventService {
 		repository.delete(event);
 		
 	}
+	
+	@Override
+	public void updateEvent(Event event) {
+		repository.save(event);
+		
+	}
+
 
 }
