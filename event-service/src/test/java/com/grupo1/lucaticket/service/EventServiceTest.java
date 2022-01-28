@@ -46,6 +46,7 @@ public class EventServiceTest {
 		assertThat(expected).isEqualTo(actual);
 	}
 
+	@DisplayName("Given dos eventos" + "When dos eventos con géneros son añadidos" + "Then tamaño lista de género X es igual a 1")
 	@Test
 	void shouldBeAnEventWithThisGenre() {
 		// Given
