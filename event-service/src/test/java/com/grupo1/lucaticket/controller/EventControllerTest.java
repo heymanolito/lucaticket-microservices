@@ -45,6 +45,20 @@ public class EventControllerTest {
                 .prettyPrint();
 
     }
+    
+    @DisplayName("GET | FILTRAR EVENTOS POR NOMBRE")
+    @Test
+    void shouldGetEventListFiltredByNombre() {
+        RestAssured.given()
+                .baseUri(BASE_URL)
+                .log().everything()
+                .contentType(ContentType.JSON)
+                .pathParam("nombre", "salerosa")
+                .get(EVENTS_BY_NOMBRE)
+                .getBody()
+                .prettyPrint();
+
+    }
 
     @DisplayName("GET | LISTAR EVENTOS POR ID")
     @Test
