@@ -75,5 +75,27 @@ public class EventServiceTest {
 		
 
 	}
+	
+	@Test
+	void shouldBeAnEventWithThisName() {
+		// Given
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja salerosa", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Copla");
+
+		Event event2 = new Event(1, "La pantoja molona", "hola mujer salerosa", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Reggeaton");
+		// When
+		serviceTest.saveEvent(event);
+		serviceTest.saveEvent(event2);
+		int expected = 2;
+		List<EventResponse> lista = serviceTest.findByNombre("salerosa");
+		
+		// Then
+		assertThat(expected).isEqualTo(lista.size());
+		
+	}
 
 }
