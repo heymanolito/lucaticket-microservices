@@ -59,4 +59,10 @@ public class EventServiceImpl implements EventService {
 		return eventAdapter.of(repository.findByGenero(genero));
 	}
 
+	@Override
+	public void delete(Event event) {
+		repository.delete(event);
+		
+	}
+
 }

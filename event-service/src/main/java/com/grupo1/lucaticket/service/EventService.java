@@ -17,4 +17,6 @@ public interface EventService {
     void deleteAll();
     
     List<EventResponse> findByGenero(String genero);
+    
+    void delete(Event event);
 }
