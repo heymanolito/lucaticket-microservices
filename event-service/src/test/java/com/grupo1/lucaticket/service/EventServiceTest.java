@@ -4,7 +4,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,6 +45,7 @@ public class EventServiceTest {
 		assertThat(expected).isEqualTo(actual);
 	}
 
+	@DisplayName("Given dos eventos" + "When dos eventos con géneros son añadidos" + "Then tamaño lista de género X es igual a 1")
 	@Test
 	void shouldBeAnEventWithThisGenre() {
 		// Given
@@ -63,20 +63,12 @@ public class EventServiceTest {
 		int expected = 1;
 		List<EventResponse> lista = serviceTest.findByGenero(event.getGenero());
 		
-		/*for (int i = 0; i < lista.size(); i++) {
-			if (event.getGenero()==lista.get(i).getGenero()) {
-				
-				cont +=1;
-				System.out.println(lista.get(i).getGenero());		
-			}
-		}*/
 		// Then
 		assertThat(expected).isEqualTo(lista.size());
 		
 
 	}
 	
-	@Test
 	void shouldBeAnEventWithThisName() {
 		// Given
 		Integer[] rangoPrecios = { 10, 20 };
@@ -94,6 +86,43 @@ public class EventServiceTest {
 		List<EventResponse> lista = serviceTest.findByNombre("salerosa");
 		
 		// Then
+		assertThat(expected).isEqualTo(lista.size());
+		
+		}
+
+		
+	void shouldBeAnEmptyListWhenFindByGenero() {
+		//Given
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Punk");
+		
+		//When
+		serviceTest.saveEvent(event);
+		int expected = 0;
+		List<EventResponse> lista= serviceTest.findByGenero("Copla");
+		
+		//Then
+		assertThat(expected).isEqualTo(lista.size());
+		
+	}
+	
+	void shouldBeAnEmptyListWhenFindByNombre() {
+		//Given
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Punk");
+		
+		//When
+		serviceTest.saveEvent(event);
+		int expected = 0;
+		List<EventResponse> lista= serviceTest.findByNombre("pepa");
+		
+		//Then
 		assertThat(expected).isEqualTo(lista.size());
 		
 	}
