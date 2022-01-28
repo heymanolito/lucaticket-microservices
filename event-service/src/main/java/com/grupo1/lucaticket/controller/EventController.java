@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,6 +98,24 @@ public class EventController {
 		return ResponseEntity.ok(result);
 		
 	}
+	
+	@Operation(summary = "Elimina un evento", description = "Sirve para eliminar un evento de la base de datos dado su id", tags = {
+	"id" })
+@ApiResponses(value = {
+	@ApiResponse(responseCode = "204", description = "Evento eliminado correctamente", content = {
+			@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+	@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este id", content = @Content) })
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deleteEvento(@PathVariable int id) {
+		log.info("Antes de borrar el evento");
+		Event deleted = eventService.findById(id).orElseThrow();
+		eventService.delete(deleted);
+		log.info("Después de borrar el evento");
+		return ResponseEntity.noContent().build();
+	}
+	
+	
 
 	@Operation(summary = "Busca un evento que incluya cierta palabra", description = "Sirve para buscar una lista de eventos en la base de datos dado un nombre", tags = {
 			"nombre" })

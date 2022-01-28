@@ -45,7 +45,8 @@ public class EventServiceTest {
 		assertThat(expected).isEqualTo(actual);
 	}
 
-	@DisplayName("Given dos eventos" + "When dos eventos con géneros son añadidos" + "Then tamaño lista de género X es igual a 1")
+	@DisplayName("Given dos eventos" + "When dos eventos con géneros son añadidos"
+			+ "Then tamaño lista de género X es igual a 1")
 	@Test
 	void shouldBeAnEventWithThisGenre() {
 		// Given
@@ -62,13 +63,12 @@ public class EventServiceTest {
 		serviceTest.saveEvent(event2);
 		int expected = 1;
 		List<EventResponse> lista = serviceTest.findByGenero(event.getGenero());
-		
+
 		// Then
 		assertThat(expected).isEqualTo(lista.size());
-		
 
 	}
-	
+
 	void shouldBeAnEventWithThisName() {
 		// Given
 		Integer[] rangoPrecios = { 10, 20 };
@@ -77,54 +77,78 @@ public class EventServiceTest {
 		Event event = new Event(1, "La pantoja salerosa", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
 				rangoPrecios, "hola", recinto, "Copla");
 
-		Event event2 = new Event(1, "La pantoja molona", "hola mujer salerosa", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
-				rangoPrecios, "hola", recinto, "Reggeaton");
+		Event event2 = new Event(1, "La pantoja molona", "hola mujer salerosa", "adios", "GDSGDS", LocalDate.now(),
+				LocalTime.now(), rangoPrecios, "hola", recinto, "Reggeaton");
 		// When
 		serviceTest.saveEvent(event);
 		serviceTest.saveEvent(event2);
 		int expected = 2;
 		List<EventResponse> lista = serviceTest.findByNombre("salerosa");
-		
+
 		// Then
 		assertThat(expected).isEqualTo(lista.size());
-		
-		}
 
-		
-	void shouldBeAnEmptyListWhenFindByGenero() {
-		//Given
-		Integer[] rangoPrecios = { 10, 20 };
-		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
-
-		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
-				rangoPrecios, "hola", recinto, "Punk");
-		
-		//When
-		serviceTest.saveEvent(event);
-		int expected = 0;
-		List<EventResponse> lista= serviceTest.findByGenero("Copla");
-		
-		//Then
-		assertThat(expected).isEqualTo(lista.size());
-		
 	}
-	
-	void shouldBeAnEmptyListWhenFindByNombre() {
-		//Given
+
+	void shouldBeAnEmptyListWhenFindByGenero() {
+		// Given
 		Integer[] rangoPrecios = { 10, 20 };
 		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
 
 		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
 				rangoPrecios, "hola", recinto, "Punk");
-		
-		//When
+
+		// When
 		serviceTest.saveEvent(event);
 		int expected = 0;
-		List<EventResponse> lista= serviceTest.findByNombre("pepa");
-		
-		//Then
+		List<EventResponse> lista = serviceTest.findByGenero("Copla");
+
+		// Then
 		assertThat(expected).isEqualTo(lista.size());
-		
+
+	}
+
+	void shouldBeAnEmptyListWhenFindByNombre() {
+		// Given
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Punk");
+		// When
+		serviceTest.saveEvent(event);
+		int expected = 0;
+		List<EventResponse> lista = serviceTest.findByNombre("pepa");
+
+		// Then
+		assertThat(expected).isEqualTo(lista.size());
+	}
+
+	@Test
+	void shouldDeleteAnEventById() {
+
+		// Given
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Punk");
+
+		// When
+		List<EventResponse> lista = serviceTest.findAll();
+		int inicial = lista.size();
+		serviceTest.saveEvent(event);
+		List<EventResponse> lista2 = serviceTest.findAll();
+		int sizeAntesDeEliminar = lista2.size();
+		serviceTest.delete(event);
+		int sizeDespues = lista.size();
+
+		// Then
+		System.out.println(inicial);
+		System.out.println(sizeAntesDeEliminar);
+		System.out.println(sizeDespues);
+
+		assertThat(sizeAntesDeEliminar).isEqualTo(sizeDespues + 1);
 	}
 
 }
