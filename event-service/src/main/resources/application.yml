@@ -18,6 +18,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8090/eureka/
+    enabled: false
+    #ENABLED: FALSE -> TESTING
+    #ENABLED: TRUE -> PRODUCCIÓN
 
 # HTTP Server (Tomcat) Port
 server:

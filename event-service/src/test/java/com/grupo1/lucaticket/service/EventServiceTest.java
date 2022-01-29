@@ -4,7 +4,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +45,9 @@ public class EventServiceTest {
 		assertThat(expected).isEqualTo(actual);
 	}
 
-	@DisplayName("Given dos eventos" + "When dos eventos con géneros son añadidos" + "Then tamaño lista de género X es igual a 1")
+	@DisplayName("Given dos eventos"
+			+ "When dos eventos con géneros son añadidos"
+			+ "Then tamaño lista de género X es igual a 1")
 	@Test
 	void shouldBeAnEventWithThisGenre() {
 		// Given

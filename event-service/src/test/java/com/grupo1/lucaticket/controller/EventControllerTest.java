@@ -29,7 +29,6 @@ public class EventControllerTest {
                 .get(EVENTS_ENDPOINT)
                 .getBody()
                 .prettyPrint();
-
     }
     
     @DisplayName("GET | FILTRAR EVENTOS POR GENERO")
