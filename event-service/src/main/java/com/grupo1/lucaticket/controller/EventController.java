@@ -57,7 +57,7 @@ public class EventController {
 			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content) })
 
 	@PostMapping("/add")
-	public ResponseEntity<Event> create(@Valid @RequestBody Event event) {
+	public ResponseEntity<Event> create(@RequestBody @Valid Event event) {
 		log.info("------ create (POST)");
 		Event saved = eventService.saveEvent(event);
 		log.info("------ Evento guardado (POST)");
@@ -113,6 +113,7 @@ public class EventController {
 		eventService.delete(deleted);
 		log.info("Después de borrar el evento");
 		return ResponseEntity.noContent().build();
+		
 	}
 	
 	

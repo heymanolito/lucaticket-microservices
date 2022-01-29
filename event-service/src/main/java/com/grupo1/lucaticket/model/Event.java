@@ -3,6 +3,7 @@ package com.grupo1.lucaticket.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -41,27 +42,31 @@ public @Data @NoArgsConstructor @AllArgsConstructor class Event {
 	private String descripcionExtendida;
 	@Schema(name= "Foto", description = "Foto del evento ")
 	private String foto;
-	@NotEmpty
-	@Size(min=10, max=10)
+	//@NotEmpty
+	//@Size(min=10, max=10)
 	@Schema(name= "Fecha del Evento", description = "Fecha del evento ")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private LocalDate fechaEvento;
-	@NotEmpty
-	@Size(min=5, max=5)
+	//@NotEmpty
+	//@Size(min=5, max=5)
 	@Schema(name= "Hora de evento", description = "Fecha del evento")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
 	private LocalTime horaEvento;
-	@NotEmpty
+	@NotEmpty 	
+
 	@Schema(name= "Rango precios", description = "Rango de precios ")
 	private Integer[] rangoPrecios = new Integer[2];
 	@NotEmpty
+
 	@Size(min=6)
 	@Schema(name= "Politica de acceso", description = "Politica de acceso ")
 	private String politicaAcceso;
-	@NotEmpty
+
+	//@NotEmpty
 	@Schema(name= "Recinto", description = "Recinto del evento")
 	private Recinto recinto;
 	@NotEmpty
+
 	@Size(min=4)
 	@Schema(name ="Genero", description="Genero musical del evento")
 	private String genero;
