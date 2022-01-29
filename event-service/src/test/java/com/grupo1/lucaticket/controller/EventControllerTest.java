@@ -63,7 +63,7 @@ public class EventControllerTest {
 	@DisplayName("GET | LISTAR EVENTOS POR ID")
 	@Test
 	public void shouldGetEventById() {
-		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", "1")
+		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", 1)
 				.get(ID_EVENTS_ENDPOINT).getBody().prettyPrint();
 	}
 
@@ -73,14 +73,30 @@ public class EventControllerTest {
 		Integer[] rangoPrecios = { 10, 20 };
 		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
 
-		Event event = new Event(0, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
 				rangoPrecios, "hola", recinto, "copla");
 
 		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(201)
 				.when().post(EVENTS_ADD_ENDPOINT);
 
-		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", "5")
+		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", 1)
 				.get(ID_EVENTS_ENDPOINT).getBody().prettyPrint();
+	}
+	
+	@DisplayName("PUT | MODIFICAR EVENTO")
+	@Test
+	public void shouldUpdateAnEvent() {
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "copla");
+
+		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(201)
+				.when().post(EVENTS_ADD_ENDPOINT);
+
+		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", 1)
+				.put(EVENTS_UPDATE_ENDPOINT).getBody().prettyPrint();
 	}
 
 }

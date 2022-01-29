@@ -151,4 +151,24 @@ public class EventServiceTest {
 		assertThat(sizeAntesDeEliminar).isEqualTo(sizeDespues + 1);
 	}
 
+	@Test
+	void shouldEqualsAnEventAndItsModifiedWithoutChanges() {
+
+		// Given
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Punk");
+
+		// When
+		serviceTest.saveEvent(event);
+		List<EventResponse> lista = serviceTest.findAll();
+		serviceTest.updateEvent(event);
+		List<EventResponse> lista2 = serviceTest.findAll();
+
+		// Then
+		assertThat(lista.toString()).isEqualTo(lista2.toString());
+	}
+
 }

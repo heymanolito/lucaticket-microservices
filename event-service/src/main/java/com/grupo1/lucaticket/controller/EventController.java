@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -82,30 +83,30 @@ public class EventController {
 		log.info("Antes de encontrar el evento");
 		return ResponseEntity.ok(found);
 	}
-	
+
 	@Operation(summary = "Busca una lista de eventos", description = "Sirve para filtrar la lista de eventos en la base de datos dado su genero", tags = {
-	"genero" })
-@ApiResponses(value = {
-	@ApiResponse(responseCode = "200", description = "Eventos encontrados correctamente", content = {
-			@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
-	@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este genero", content = @Content) })
+			"genero" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Eventos encontrados correctamente", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este genero", content = @Content) })
 
 	@GetMapping("/genero/{genero}")
-	public ResponseEntity<?> findByGenero(@PathVariable String genero){
+	public ResponseEntity<?> findByGenero(@PathVariable String genero) {
 		log.info("Antes de encontrar los eventos por genero");
-		List<EventResponse> result= eventService.findByGenero(genero);
+		List<EventResponse> result = eventService.findByGenero(genero);
 		log.info("Después de encontrar los eventos");
 		return ResponseEntity.ok(result);
-		
+
 	}
-	
+
 	@Operation(summary = "Elimina un evento", description = "Sirve para eliminar un evento de la base de datos dado su id", tags = {
-	"id" })
-@ApiResponses(value = {
-	@ApiResponse(responseCode = "204", description = "Evento eliminado correctamente", content = {
-			@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
-	@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este id", content = @Content) })
-	
+			"id" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Evento eliminado correctamente", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este id", content = @Content) })
+
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteEvento(@PathVariable int id) {
 		log.info("Antes de borrar el evento");
@@ -115,8 +116,6 @@ public class EventController {
 		return ResponseEntity.noContent().build();
 		
 	}
-	
-	
 
 	@Operation(summary = "Busca un evento que incluya cierta palabra", description = "Sirve para buscar una lista de eventos en la base de datos dado un nombre", tags = {
 			"nombre" })
@@ -131,6 +130,21 @@ public class EventController {
 		List<EventResponse> result = eventService.findByNombre(nombre);
 		log.info("Después de encontrar los eventos");
 		return ResponseEntity.ok(result);
+	}
+
+	@Operation(summary = "Modifica un evento", description = "Sirve para modificar un evento de la base de datos dado su id", tags = {
+			"id" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Evento modificado correctamente", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este id", content = @Content) })
+	@PutMapping("/update/{id}")
+	public ResponseEntity<?> updateEvent(@PathVariable int id) {
+		log.info("Antes de modificar el evento");
+		Event modified = eventService.findById(id).orElseThrow();
+		eventService.updateEvent(modified);
+		log.info("Después de modificar el evento");
+		return ResponseEntity.ok(modified);
 	}
 
 }
