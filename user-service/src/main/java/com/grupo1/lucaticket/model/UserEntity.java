@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name="usuarios")
+@Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @NoArgsConstructor
@@ -25,59 +25,59 @@ import java.util.stream.Collectors;
 @Builder
 public class UserEntity implements UserDetails {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6189678452627071360L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6189678452627071360L;
 
-	@Id
-	@GeneratedValue
-	private Long id;
-
-	@Column(unique = true)
-	private String username;
-
-	private String password;
-
-	private String fullName;
-	
-	private String email;
-
-	@ElementCollection(fetch = FetchType.EAGER)
-	@Enumerated(EnumType.STRING)
-	private Set<UserRole> roles;
-
-	@CreatedDate
-	private LocalDateTime createdAt;
-
-	@Builder.Default
-	private LocalDateTime lastPasswordChangeAt = LocalDateTime.now();
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles.stream().map(ur -> new SimpleGrantedAuthority("ROLE_" + ur.name())).collect(Collectors.toList());
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Id
+    @GeneratedValue
+    private Long id;
 
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    private String username;
+
+    private String password;
+
+    private String fullName;
+    @Column(unique = true)
+    private String email;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<UserRole> roles;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @Builder.Default
+    private LocalDateTime lastPasswordChangeAt = LocalDateTime.now();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream().map(ur -> new SimpleGrantedAuthority("ROLE_" + ur.name())).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }
