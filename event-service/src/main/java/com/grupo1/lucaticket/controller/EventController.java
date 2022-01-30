@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.grupo1.lucaticket.dto.EventResponse;
+import com.grupo1.lucaticket.exception.InvalidDataException;
 import com.grupo1.lucaticket.model.Event;
 import com.grupo1.lucaticket.service.EventService;
 
@@ -50,16 +52,20 @@ public class EventController {
 		return ResponseEntity.ok(result);
 	}
 
-	@Operation(summary = "Añade un evento", description = "Sirve para añadir un evento a la base de datos", tags = {
+	@Operation(summary = "AÃ±ade un evento", description = "Sirve para aÃ±adir un evento a la base de datos", tags = {
 			"Eventos" })
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Evento añadido correctamente", content = {
+			@ApiResponse(responseCode = "200", description = "Evento aÃ±adido correctamente", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
-			@ApiResponse(responseCode = "404", description = "Error: No se ha podido añadir añadir el evento", content = @Content) })
+			@ApiResponse(responseCode = "404", description = "Error: No se ha podido aÃ±adir aÃ±adir el evento", content = @Content) })
 
 	@PostMapping("/add")
-	public ResponseEntity<Event> create(@RequestBody @Valid Event event) {
+	public ResponseEntity<Event> create(@RequestBody @Valid Event event, BindingResult result) {
 		log.info("------ create (POST)");
+		if(result.hasErrors()) {
+			log.info("------ Evento con errores  (POST)");
+			throw new InvalidDataException(result);
+		}
 		Event saved = eventService.saveEvent(event);
 		log.info("------ Evento guardado (POST)");
 
@@ -94,8 +100,9 @@ public class EventController {
 	@GetMapping("/genero/{genero}")
 	public ResponseEntity<?> findByGenero(@PathVariable String genero) {
 		log.info("Antes de encontrar los eventos por genero");
+		
 		List<EventResponse> result = eventService.findByGenero(genero);
-		log.info("Después de encontrar los eventos");
+		log.info("DespuÃ©s de encontrar los eventos");
 		return ResponseEntity.ok(result);
 
 	}
@@ -112,7 +119,7 @@ public class EventController {
 		log.info("Antes de borrar el evento");
 		Event deleted = eventService.findById(id).orElseThrow();
 		eventService.delete(deleted);
-		log.info("Después de borrar el evento");
+		log.info("DespuÃ©s de borrar el evento");
 		return ResponseEntity.noContent().build();
 		
 	}
@@ -122,13 +129,13 @@ public class EventController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Eventos encontrados correctamente", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
-			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningún evento", content = @Content) })
+			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningÃºn evento", content = @Content) })
 
 	@GetMapping("/nombre/{nombre}")
 	public ResponseEntity<?> findByNombre(@PathVariable String nombre) {
 		log.info("Antes de encontrar los eventos");
 		List<EventResponse> result = eventService.findByNombre(nombre);
-		log.info("Después de encontrar los eventos");
+		log.info("DespuÃ©s de encontrar los eventos");
 		return ResponseEntity.ok(result);
 	}
 
@@ -139,11 +146,11 @@ public class EventController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
 			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este id", content = @Content) })
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> updateEvent(@PathVariable int id) {
+	public ResponseEntity<?> updateEvent(@PathVariable int id,  BindingResult result) {
 		log.info("Antes de modificar el evento");
 		Event modified = eventService.findById(id).orElseThrow();
 		eventService.updateEvent(modified);
-		log.info("Después de modificar el evento");
+		log.info("DespuÃ©s de modificar el evento");
 		return ResponseEntity.ok(modified);
 	}
 
