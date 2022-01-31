@@ -31,7 +31,7 @@ public class UserControllerTest {
 				.fullName("Manolito Gallardo BadGyaler")
 				.email("manolitoBadGYal@gmail.com")
 				.roles(null).build();
-		log.info("***************************" +user.getId().toString());
+		log.info("***************************" + user.getId());
 		RestAssured.given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(user).expect().statusCode(201)
 		.when().post(USER_ENDPOINT);
 		

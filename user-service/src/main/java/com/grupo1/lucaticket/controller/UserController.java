@@ -108,7 +108,8 @@ public class UserController {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = UserEntity.class)) }),
 	@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun usuario con este id", content = @Content) })
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateUser(@PathVariable Long id, BindingResult result){
     	log.info("Antes de modificar el evento");
     	UserEntity modified= userEntityService.findById(id).orElseThrow();
