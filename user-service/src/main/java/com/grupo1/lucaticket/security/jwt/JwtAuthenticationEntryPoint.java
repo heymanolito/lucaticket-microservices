@@ -1,7 +1,6 @@
-package com.grupo1.lucaticket.security;
+package com.grupo1.lucaticket.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.grupo1.lucaticket.controller.AuthenticationController;
 import com.grupo1.lucaticket.error.ApiError;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,7 +23,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException, ServletException {
+                         AuthenticationException authException) throws IOException {
         log.info("Ha habido un error de autenticación.");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json");

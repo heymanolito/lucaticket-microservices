@@ -1,7 +1,7 @@
 package com.grupo1.lucaticket.controller;
 
 import com.grupo1.lucaticket.dto.GetUserDto;
-import com.grupo1.lucaticket.dto.UserDtoConverter;
+import com.grupo1.lucaticket.dto.adapter.UserDtoConverter;
 import com.grupo1.lucaticket.model.UserEntity;
 import com.grupo1.lucaticket.model.UserRole;
 import com.grupo1.lucaticket.security.jwt.JwtTokenProvider;
@@ -46,7 +46,6 @@ public class AuthenticationController {
 
         UserEntity user = (UserEntity) authentication.getPrincipal();
         String jwtToken = tokenProvider.generateToken(authentication);
-
         return convertUserEntityAndTokenToJwtUserResponse(user, jwtToken);
 
     }
@@ -63,7 +62,6 @@ public class AuthenticationController {
                 .jwtUserResponseBuilder()
                 .fullName(user.getFullName())
                 .email(user.getEmail())
-                .username(user.getUsername())
                 .roles(user.getRoles().stream().map(UserRole::name).collect(Collectors.toSet()))
                 .token(jwtToken)
                 .build();

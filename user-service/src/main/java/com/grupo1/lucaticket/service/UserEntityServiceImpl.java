@@ -40,7 +40,7 @@ public class UserEntityServiceImpl implements UserEntityService {
             UserEntity userEntity = UserEntity.builder()
                     .username(UsernameGeneratorUtil.generateUsername(newUser.getEmail()))
                     .password(passwordEncoder.encode(newUser.getPassword()))
-                    .fullName(newUser.getFullname())
+                    .fullName(newUser.getFullName())
                     .email(newUser.getEmail())
                     .roles(Stream.of(UserRole.USER).collect(Collectors.toSet())).build();
             try {
@@ -52,11 +52,6 @@ public class UserEntityServiceImpl implements UserEntityService {
             throw new NewUserWithDifferentPasswordsException();
         }
 
-    }
-
-    @Override
-    public boolean doesMailExists(UserEntity user) {
-        return false;
     }
 
 }

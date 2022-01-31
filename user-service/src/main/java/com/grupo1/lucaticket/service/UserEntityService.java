@@ -9,8 +9,6 @@ public interface UserEntityService {
 
     UserEntity nuevoUsuario(CreateUserDto user);
 
-    boolean doesMailExists(UserEntity user);
-
     Optional<UserEntity> findByEmail(String email);
 
     Optional<UserEntity> findById(Long id);
