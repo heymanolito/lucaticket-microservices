@@ -1,0 +1,21 @@
+package com.grupo1.lucaticket.dto;
+
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class PaymentDto {
+
+    private Long id_user;
+    private String nombreEvento;
+    private Integer precioEvento;
+    private String fullName;
+    private Integer numTarjeta;
+    private LocalDateTime fechaCaducidad;
+    private Integer CVV;
+}

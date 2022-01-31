@@ -2,9 +2,12 @@ package com.grupo1.lucaticket.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.grupo1.lucaticket.dto.RequestEventDto;
+import com.grupo1.lucaticket.util.PrecioUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,6 +155,14 @@ public class EventController {
 		eventService.updateEvent(modified);
 		log.info("DespuÃ©s de modificar el evento");
 		return ResponseEntity.ok(modified);
+	}
+
+	@GetMapping("{id}")
+	public RequestEventDto getEventToBuy(@PathVariable int id) {
+		Event event = eventService.findById(id).orElseThrow();
+		return RequestEventDto.builder()
+				.nombreEvento(event.getNombre())
+				.precioEvento(PrecioUtil.getPrecioRandom(event.getRangoPrecios())).build();
 	}
 
 }
