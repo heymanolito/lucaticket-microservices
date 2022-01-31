@@ -1,4 +1,3 @@
-### Spring properties
 # Service registers under this name
 spring:
   application:
@@ -6,28 +5,18 @@ spring:
   config:
     import: 'optional:configserver:'
   cloud:
-    config:
-      uri: http://localhost:8089
-  data:
-    mongodb:
-      uri: mongodb+srv://admin:admin@proyecto-lucaticket.jief6.mongodb.net/events?retryWrites=true&w=majority
-      database: events
-
+      config:
+        uri: http://localhost:8089
 # Discovery Server Access
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8090/eureka/
-    enabled: false
-    #ENABLED: FALSE -> TESTING
-    #ENABLED: TRUE -> PRODUCCIÓN
 
 # HTTP Server (Tomcat) Port
 server:
-  port: 8091
+  port: 8094
   # Disable Spring Boot's "Whitelabel" default error page, so we can use our own
   error:
     whitelabel:
       enabled: false
-
-

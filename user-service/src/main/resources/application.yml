@@ -2,20 +2,20 @@
 
 spring:
 
-# Service registers under this name
+  # Service registers under this name
   application:
     name: event
   config:
     import: 'optional:configserver:'
   cloud:
-      config:
-        uri: http://localhost:8089
+    config:
+      uri: http://localhost:8089
 
-# DATA SOURCE
+  # DATA SOURCE
   datasource:
-    url: jdbc:mysql://localhost:3306/userdb?useUnicode=yes&characterEncoding=UTF-8
-    username: root
-    password: 123654Asde
+    url: jdbc:mysql://instanciadb.ciakhac9rhp8.us-east-1.rds.amazonaws.com:3306/users_lucaticket?useUnicode=yes&characterEncoding=UTF-8
+    username: Administrator
+    password: Administrator2
   jpa:
     hibernate:
       ddl-auto: update

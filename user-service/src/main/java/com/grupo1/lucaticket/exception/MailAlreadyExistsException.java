@@ -1,13 +1,15 @@
 package com.grupo1.lucaticket.exception;
 
-public class MailAlreadyExistsException extends Exception{
+import org.springframework.dao.DataIntegrityViolationException;
 
-	private static final long serialVersionUID = 1L;
+public class MailAlreadyExistsException extends DataIntegrityViolationException {
 
-	public MailAlreadyExistsException() {
-		super("El mail ya pertenece a otro usuario.");
-	}
-	public MailAlreadyExistsException(String mail) {
-		super("El mail " + mail + " ya pertenece a otro usuario.");
-	}	
+
+    public MailAlreadyExistsException() {
+        super("El mail ya pertenece a otro usuario.");
+    }
+
+    public MailAlreadyExistsException(String mail) {
+        super("El mail " + mail + " ya pertenece a otro usuario.");
+    }
 }
