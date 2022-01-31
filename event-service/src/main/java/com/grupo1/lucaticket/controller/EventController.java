@@ -119,7 +119,7 @@ public class EventController {
 		log.info("Antes de borrar el evento");
 		Event deleted = eventService.findById(id).orElseThrow();
 		eventService.delete(deleted);
-		log.info("DespuÃ©s de borrar el evento");
+		log.info("Despues de borrar el evento");
 		return ResponseEntity.noContent().build();
 		
 	}

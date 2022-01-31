@@ -1,6 +1,8 @@
 package com.grupo1.lucaticket.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +14,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -34,18 +39,30 @@ public class UserEntity implements UserDetails {
     private static final long serialVersionUID = 6189678452627071360L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-
+    @NotEmpty(message = "Username nulo o vacio")
+	@Size(min = 3, message = "User debe tener al menos 3 caracteres")
+	@Schema(name = "Username", description = "Username del usuario")
     private String username;
 
+    @NotEmpty(message = "Contraseña corta, nula o vacia")
+	@Size(min = 3, message = "Contraseña corta debe tener al menos 3 caracteres")
+	@Schema(name = "Contraseña", description = "Contraseña del usuario" )
     private String password;
 
+    @NotEmpty(message = "Nombre corto, nulo o vacio")
+	@Size(min = 3, message = "Nombre corto debe tener al menos 3 caracteres")
+	@Schema(name = "Nombre completo", description = "Nombre y apellidos del usuario" )
     private String fullName;
 
+    @NotEmpty(message = "email corto, nulo o vacio")
+	@Size(min = 3, message = "Contraseña corto debe tener al menos 3 caracteres")
+	@Schema(name = "Email", description = "Email del usuario" )
     @Column(unique = true)
     private String email;
 
+    
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;

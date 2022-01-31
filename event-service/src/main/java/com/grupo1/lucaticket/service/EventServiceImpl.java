@@ -84,7 +84,7 @@ public class EventServiceImpl implements EventService {
 	public void delete(Event event) {
 		Optional<Event> opt = repository.findById(event.getId());
         if(opt.isEmpty()) {
-        	log.info("***** No se ha encontrado evento con ese genero");
+        	log.info("***** No se ha encontrado evento con ese id");
         	throw new NoSuchElementException("No existe ningun evento con id: "+event.getId());
         }
 		repository.delete(event);

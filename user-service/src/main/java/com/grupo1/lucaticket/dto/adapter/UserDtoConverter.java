@@ -5,6 +5,7 @@ import com.grupo1.lucaticket.model.UserEntity;
 import com.grupo1.lucaticket.model.UserRole;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -19,6 +20,9 @@ public class UserDtoConverter {
                         .map(UserRole::name)
                         .collect(Collectors.toSet())
                 ).build();
+    }
+    public List<GetUserDto> of(List<UserEntity> user) {
+        return user.stream().map(this::convertUserEntityToGetUserDto).collect(Collectors.toList());
     }
 
 }

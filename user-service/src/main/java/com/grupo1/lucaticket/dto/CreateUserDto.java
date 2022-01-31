@@ -1,7 +1,11 @@
 package com.grupo1.lucaticket.dto;
 
-import lombok.*;
-//Este comentario no sirve
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
