@@ -1,7 +1,7 @@
 package com.grupo1.lucaticket.dto;
 
 import lombok.*;
-
+//Este comentario no sirve
 @Getter
 @Setter
 @NoArgsConstructor
