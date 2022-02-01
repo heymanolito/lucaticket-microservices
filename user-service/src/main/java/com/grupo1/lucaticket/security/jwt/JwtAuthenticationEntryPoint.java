@@ -28,7 +28,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType("application/json");
 
-        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, authException.getMessage());
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, authException.getMessage() + "HOLA SOY EL MICROSERVICIO DE USERS");
         String strApiError = mapper.writeValueAsString(apiError);
 
         PrintWriter writer = response.getWriter();

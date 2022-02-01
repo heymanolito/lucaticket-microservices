@@ -157,8 +157,9 @@ public class EventController {
 		return ResponseEntity.ok(modified);
 	}
 
-	@GetMapping("{id}")
+	@GetMapping("/buy/{id}")
 	public RequestEventDto getEventToBuy(@PathVariable int id) {
+		log.info("Dentro de get event to buy");
 		Event event = eventService.findById(id).orElseThrow();
 		return RequestEventDto.builder()
 				.nombreEvento(event.getNombre())

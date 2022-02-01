@@ -42,7 +42,7 @@ public class AuthenticationController {
     private final UserDtoConverter converter;
 
 
-    @PostMapping("/auth/login")
+    @PostMapping("/login")
     public JwtUserResponse login(@Valid @RequestBody LoginRequest loginRequest) {
         log.info("POST - Login");
         Authentication authentication =
