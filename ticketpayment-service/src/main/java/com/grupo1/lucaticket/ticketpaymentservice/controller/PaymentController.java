@@ -1,6 +1,8 @@
 package com.grupo1.lucaticket.ticketpaymentservice.controller;
 
 import com.grupo1.lucaticket.ticketpaymentservice.model.Payment;
+import com.grupo1.lucaticket.ticketpaymentservice.model.RequestPaymentDto;
+import com.grupo1.lucaticket.ticketpaymentservice.model.Ticket;
 import com.grupo1.lucaticket.ticketpaymentservice.model.dto.RequestEventDto;
 import com.grupo1.lucaticket.ticketpaymentservice.service.PaymentService;
 import com.grupo1.lucaticket.ticketpaymentservice.util.TokenUtil;
@@ -27,23 +29,10 @@ public class PaymentController {
     private PaymentService service;
 
     @PostMapping("{id}")
-    public ResponseEntity<?> comprarTicket(@RequestHeader("Authorization") String token, @RequestBody Payment payment, @PathVariable int id) {
-        //EventDto con rest template - >
-        RequestEventDto event = service.getEventDetails(id);
-        log.info(token);
-        Long userId = TokenUtil.getUserIdFromJWT(token); //Obtenemos el ID del usuario
-        // Recoge el POST del usuario
-        Payment paymentDto = Payment.builder()
-                .id_user(userId)
-                .nombreEvento(event.getNombreEvento())
-                .precioEvento(event.getPrecioEvento())
-                .fullName(payment.getFullName())
-                .fechaCaducidad(payment.getFechaCaducidad())
-                .numTarjeta(payment.getNumTarjeta())
-                .CVV(payment.getCVV()).build();
-        return ResponseEntity.ok(paymentDto);
+    public ResponseEntity<?> comprarTicket(@RequestHeader("Authorization") String token, @RequestBody RequestPaymentDto request, @PathVariable int id) {
+        RequestPaymentDto paymentDto = service.processPayment(token, request, id);
+        String validation = service.requestValidation(paymentDto);
+        return service.pasarelaDePago(paymentDto, validation);
     }
-
-
 
 }
