@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.grupo1.lucaticket.dto.CreateUserDto;
 import com.grupo1.lucaticket.dto.GetUserDto;
 import com.grupo1.lucaticket.dto.adapter.UserDtoConverter;
+
 import com.grupo1.lucaticket.model.UserEntity;
 import com.grupo1.lucaticket.service.UserEntityService;
 
@@ -110,12 +111,12 @@ public class UserController {
 
     @PutMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, BindingResult result){
+    public ResponseEntity<?> updateUser(@RequestBody UserEntity user, BindingResult result){
     	log.info("Antes de modificar el evento");
-    	UserEntity modified= userEntityService.findById(id).orElseThrow();
-    	userEntityService.updateUser(modified);
+    	
+    	userEntityService.updateUser(user);
     	log.info("MODIFICADO");
-    	return ResponseEntity.ok(modified);
+    	return ResponseEntity.ok(user);
     }
     
 

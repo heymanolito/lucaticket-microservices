@@ -162,16 +162,16 @@ public class EventController {
 			@ApiResponse(responseCode = "204", description = "Evento modificado correctamente", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
 			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este id", content = @Content) })
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> updateEvent(@PathVariable int id, BindingResult result) {
+	@PutMapping("/update")
+	public ResponseEntity<?> updateEvent(BindingResult result, @RequestBody Event event) {
 		log.info("Antes de modificar el evento");
-		Event modified = eventService.findById(id).orElseThrow();
-		eventService.updateEvent(modified);
+	
+		eventService.updateEvent(event);
 		log.info("DespuÃ©s de modificar el evento");
-		return ResponseEntity.ok(modified);
+		return ResponseEntity.ok(event);
 	}
 
-	@GetMapping("{id}")
+	@GetMapping("/buy/{id}")
 	public RequestEventDto getEventToBuy(@PathVariable int id) {
 		Event event = eventService.findById(id).orElseThrow();
 		return RequestEventDto.builder()
