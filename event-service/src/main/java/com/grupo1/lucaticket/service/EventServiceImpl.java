@@ -79,6 +79,16 @@ public class EventServiceImpl implements EventService {
         }
 		return eventAdapter.of(repository.findByGenero(genero));
 	}
+	@Override
+	public List<EventResponse> findByCiudad(String ciudad) {
+		log.info("********** Antes de filtrar por ciudad");
+		List<Event> opt = repository.findByCity(ciudad);
+		if(opt.isEmpty()) {
+			log.info("********* No se ha encotrado evento con esta ciudad");
+			throw new NoSuchElementException("No existe ningun evento en esta ciudad: " +ciudad);
+		}
+		return eventAdapter.of(repository.findByCity(ciudad));
+	}
 
 	@Override
 	public void delete(Event event) {
@@ -96,6 +106,7 @@ public class EventServiceImpl implements EventService {
 		repository.save(event);
 		
 	}
+
 
 
 }

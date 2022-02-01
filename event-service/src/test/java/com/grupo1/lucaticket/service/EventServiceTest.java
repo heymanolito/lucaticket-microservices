@@ -69,6 +69,29 @@ public class EventServiceTest {
 
 	}
 
+	@Test
+	void shouldBeAnEventInThisCity() {
+		// Given
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+		Recinto recinto2 = new Recinto(1, "Sala pepe", "Barcelona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Copla");
+
+		Event event2 = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto2, "Reggeaton");
+		// When
+		serviceTest.saveEvent(event2);
+		serviceTest.saveEvent(event);
+		int expected = 1;
+		List<EventResponse> lista = serviceTest.findByCiudad("Badalona");
+
+		// Then
+		System.out.println(lista.get(0).getCiudadRecinto());
+		assertThat(expected).isEqualTo(lista.size());
+	}
+
 	void shouldBeAnEventWithThisName() {
 		// Given
 		Integer[] rangoPrecios = { 10, 20 };
@@ -90,6 +113,7 @@ public class EventServiceTest {
 
 	}
 
+	@Test
 	void shouldBeAnEmptyListWhenFindByGenero() {
 		// Given
 		Integer[] rangoPrecios = { 10, 20 };
@@ -107,6 +131,26 @@ public class EventServiceTest {
 		assertThat(expected).isEqualTo(lista.size());
 
 	}
+	/*
+	@Test
+	void shouldBeTheSameEventAfterModifyNothing() {
+		// Given
+		Integer[] rangoPrecios = { 10, 20 };
+		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
+
+		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Punk");
+		
+		//When
+		serviceTest.saveEvent(event);
+		serviceTest.saveEvent(event);
+		
+		
+		//Then
+		
+		assertThat(event)
+	}
+	*/
 
 	void shouldBeAnEmptyListWhenFindByNombre() {
 		// Given
@@ -144,9 +188,6 @@ public class EventServiceTest {
 		int sizeDespues = lista.size();
 
 		// Then
-		System.out.println(inicial);
-		System.out.println(sizeAntesDeEliminar);
-		System.out.println(sizeDespues);
 
 		assertThat(sizeAntesDeEliminar).isEqualTo(sizeDespues + 1);
 	}
