@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 public class Payment {
 
     private Long id_user;
-    private Long id_event;
     private String nombreEvento;
     private Integer precioEvento;
     private String fullName;

@@ -171,12 +171,14 @@ public class EventController {
 	}
 
 	@GetMapping("/buy/{id}")
-	public RequestEventDto getEventToBuy(@PathVariable int id) {
+	public ResponseEntity<RequestEventDto> getEventToBuy(@PathVariable int id) {
 		log.info("Dentro de get event to buy");
 		Event event = eventService.findById(id).orElseThrow();
-		return RequestEventDto.builder()
+		RequestEventDto response = RequestEventDto.builder()
 				.nombreEvento(event.getNombre())
 				.precioEvento(PrecioUtil.getPrecioRandom(event.getRangoPrecios())).build();
+
+		return ResponseEntity.ok(response);
 	}
 
 }
