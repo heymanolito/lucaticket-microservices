@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import static com.grupo1.lucaticket.ticketpaymentservice.util.TokenUtil.getBearerTokenHeader;
 
 
-@RestController
+
 @RequiredArgsConstructor
-@AllArgsConstructor
 @RequestMapping("/payment")
+@RestController
 public class PaymentController {
 
-    private TokenUtil tokenProvider;
 
+    @Autowired
     private PaymentService service;
 
     @PostMapping("{id}")
     public ResponseEntity<?> comprarTicket(@RequestBody Payment payment, @PathVariable int id) {
         //EventDto con rest template - >
         RequestEventDto event = service.getEventDetails(id);
-        Long userId = tokenProvider.getUserIdFromJWT(getBearerTokenHeader()); //Obtenemos el ID del usuario
+        Long userId = TokenUtil.getUserIdFromJWT(getBearerTokenHeader()); //Obtenemos el ID del usuario
         // Recoge el POST del usuario
         Payment paymentDto = Payment.builder()
                 .id_user(userId)

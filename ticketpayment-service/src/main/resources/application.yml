@@ -1,7 +1,7 @@
 # Service registers under this name
 spring:
   application:
-    name: event
+    name: ticket-payment
   config:
     import: 'optional:configserver:'
   cloud:

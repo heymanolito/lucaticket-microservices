@@ -4,7 +4,7 @@ spring:
 
   # Service registers under this name
   application:
-    name: event
+    name: user
   config:
     import: 'optional:configserver:'
   cloud:

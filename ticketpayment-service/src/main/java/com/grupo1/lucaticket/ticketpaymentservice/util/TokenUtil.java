@@ -14,9 +14,9 @@ public class TokenUtil {
     public static final String TOKEN_HEADER = "Authorization";
 
     @Value("${jwt.secret:EnUnLugarDeLaManchaDeCuyoNombreNoQuieroAcordarmeNoHaMuchoTiempoQueViviaUnHidalgo}")
-    private String jwtSecreto;
+    static String jwtSecreto;
 
-    public Long getUserIdFromJWT(String token) {
+    public static Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(Keys.hmacShaKeyFor(jwtSecreto.getBytes()))
                 .parseClaimsJws(token)
