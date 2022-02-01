@@ -19,6 +19,8 @@ public interface EventService {
     List<EventResponse> findByNombre(String nombre);
 
     List<EventResponse> findByGenero(String genero);
+    
+    List<EventResponse> findByCiudad(String ciudad);
 
     void delete(Event event);
 

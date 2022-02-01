@@ -65,7 +65,7 @@ public class EventController {
 	@PostMapping("/add")
 	public ResponseEntity<Event> create(@RequestBody @Valid Event event, BindingResult result) {
 		log.info("------ create (POST)");
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			log.info("------ Evento con errores  (POST)");
 			throw new InvalidDataException(result);
 		}
@@ -103,11 +103,25 @@ public class EventController {
 	@GetMapping("/genero/{genero}")
 	public ResponseEntity<?> findByGenero(@PathVariable String genero) {
 		log.info("Antes de encontrar los eventos por genero");
-		
+
 		List<EventResponse> result = eventService.findByGenero(genero);
 		log.info("DespuÃ©s de encontrar los eventos");
 		return ResponseEntity.ok(result);
 
+	}
+
+	@Operation(summary = "Busca una lista de eventos", description = "Sirve para filtrar la lista de eventos en la base de datos dada su ciudad", tags = {
+			"ciudad" })
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Eventos encontrados correctamente", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
+			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento en esta ciudad", content = @Content) })
+	@GetMapping("/recinto/{ciudad}")
+	public ResponseEntity<?> findByCiudad(@PathVariable String ciudad) {
+		log.info("Antes de encontrar eventos por ciudad");
+		List<EventResponse> result = eventService.findByCiudad(ciudad);
+		log.info("Despues de encontrar los eventos");
+		return ResponseEntity.ok(result);
 	}
 
 	@Operation(summary = "Elimina un evento", description = "Sirve para eliminar un evento de la base de datos dado su id", tags = {
@@ -124,7 +138,7 @@ public class EventController {
 		eventService.delete(deleted);
 		log.info("Despues de borrar el evento");
 		return ResponseEntity.noContent().build();
-		
+
 	}
 
 	@Operation(summary = "Busca un evento que incluya cierta palabra", description = "Sirve para buscar una lista de eventos en la base de datos dado un nombre", tags = {
@@ -149,7 +163,7 @@ public class EventController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
 			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este id", content = @Content) })
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> updateEvent(@PathVariable int id,  BindingResult result) {
+	public ResponseEntity<?> updateEvent(@PathVariable int id, BindingResult result) {
 		log.info("Antes de modificar el evento");
 		Event modified = eventService.findById(id).orElseThrow();
 		eventService.updateEvent(modified);

@@ -44,8 +44,8 @@ public class EventControllerTest {
 		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
 				rangoPrecios, "hola", recinto, "copla");
 
-		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(201)
-				.when().post(EVENTS_ADD_ENDPOINT);
+		//given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(201)
+			//	.when().post(EVENTS_ADD_ENDPOINT);
 
 		RestAssured.given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", 1)
 				.delete(DELETE_EVENTS).getBody().prettyPrint();
@@ -58,6 +58,13 @@ public class EventControllerTest {
 		RestAssured.given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON)
 				.pathParam("genero", "copla").get(EVENTS_BY_GENERO).getBody().prettyPrint();
 
+	}
+	
+	@DisplayName("GET | FILTRAR POR CIUDAD DE RECINTO")
+	@Test
+	void shouldGetEventListFiltredByCiudadRecinto() {
+		RestAssured.given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON)
+		.pathParam("ciudad","Badalona").get(EVENTS_BY_CITY).getBody().prettyPrint();
 	}
 
 	@DisplayName("GET | LISTAR EVENTOS POR ID")
@@ -76,8 +83,8 @@ public class EventControllerTest {
 		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
 				rangoPrecios, "hola", recinto, "copla");
 
-		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(201)
-				.when().post(EVENTS_ADD_ENDPOINT);
+		//given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(201)
+		//		.when().post(EVENTS_ADD_ENDPOINT);
 
 		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", 1)
 				.get(ID_EVENTS_ENDPOINT).getBody().prettyPrint();
@@ -92,8 +99,8 @@ public class EventControllerTest {
 		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
 				rangoPrecios, "hola", recinto, "copla");
 
-		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(201)
-				.when().post(EVENTS_ADD_ENDPOINT);
+		//given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(201)
+			//	.when().post(EVENTS_ADD_ENDPOINT);
 
 		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", 1)
 				.put(EVENTS_UPDATE_ENDPOINT).getBody().prettyPrint();
