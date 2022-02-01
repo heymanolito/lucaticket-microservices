@@ -5,6 +5,7 @@ import com.grupo1.lucaticket.model.UserRole;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
+import lombok.Getter;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Log
 @Component
+@Getter
 public class JwtTokenProvider {
 
     public static final String TOKEN_HEADER = "Authorization";
