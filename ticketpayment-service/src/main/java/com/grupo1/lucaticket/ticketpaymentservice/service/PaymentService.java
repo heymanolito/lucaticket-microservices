@@ -1,8 +1,7 @@
 package com.grupo1.lucaticket.ticketpaymentservice.service;
 
 import com.grupo1.lucaticket.ticketpaymentservice.model.RequestPaymentDto;
-import com.grupo1.lucaticket.ticketpaymentservice.model.ResponsePaymentDto;
-import com.grupo1.lucaticket.ticketpaymentservice.model.ResponseTicketDosDto;
+import com.grupo1.lucaticket.ticketpaymentservice.model.dto.ResponseTicketDosDto;
 import com.grupo1.lucaticket.ticketpaymentservice.model.ResponseTicketDto;
 import com.grupo1.lucaticket.ticketpaymentservice.model.dto.RequestEventDto;
 import com.grupo1.lucaticket.ticketpaymentservice.util.TokenUtil;

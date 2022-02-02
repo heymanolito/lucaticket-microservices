@@ -2,7 +2,6 @@ package com.grupo1.lucaticket.service;
 
 import com.grupo1.lucaticket.controller.AuthenticationController;
 import com.grupo1.lucaticket.dto.RequestEventDto;
-import com.grupo1.lucaticket.dto.ResponseEventDto;
 import com.grupo1.lucaticket.model.Ticket;
 import com.grupo1.lucaticket.model.UserEntity;
 import com.grupo1.lucaticket.repository.TicketRepository;
@@ -26,9 +25,9 @@ public class TicketServiceImpl implements TicketService {
 
     private static final Logger log = LoggerFactory.getLogger(TicketServiceImpl.class);
 
-    public ResponseEventDto saveTicket(RequestEventDto eventDto) {
+    public RequestEventDto saveTicket(RequestEventDto eventDto) {
        log.info("---[SERVICE] GUARDANDO TICKET..." + repository.save(convertirTicket(eventDto)));
-       return ResponseEventDto.builder()
+       return RequestEventDto.builder()
                 .nombreEvento(eventDto.getNombreEvento())
                 .precioEvento(eventDto.getPrecioEvento())
                 .message(eventDto.getMessage()).build();
