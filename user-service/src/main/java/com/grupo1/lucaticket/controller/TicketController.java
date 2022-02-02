@@ -5,6 +5,7 @@ import com.grupo1.lucaticket.model.Ticket;
 import com.grupo1.lucaticket.service.TicketService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,7 +17,7 @@ public class TicketController {
     private TicketService service;
 
     @PostMapping("/save")
-    public String saveTicket(@RequestBody Ticket ticket){
-        return service.saveTicket(ticket);
+    public ResponseEntity<?> saveTicket(@RequestBody Ticket ticket){
+        return ResponseEntity.ok(service.saveTicket(ticket));
     }
 }

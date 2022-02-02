@@ -4,5 +4,5 @@ import com.grupo1.lucaticket.model.Ticket;
 
 public interface TicketService {
 
-    String saveTicket(Ticket ticket);
+    Ticket saveTicket(Ticket ticket);
 }

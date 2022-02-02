@@ -13,8 +13,7 @@ public class TicketServiceImpl implements TicketService {
 
     private TicketRepository repository;
 
-    public String saveTicket(Ticket ticket) {
-       repository.save(ticket);
-       return "vamonos niñooo";
+    public Ticket saveTicket(Ticket ticket) {
+       return repository.save(ticket);
     }
 }

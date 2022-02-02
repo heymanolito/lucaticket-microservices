@@ -1,11 +1,8 @@
 package com.grupo1.lucaticket.ticketpaymentservice.service;
 
-import com.grupo1.lucaticket.ticketpaymentservice.model.Payment;
 import com.grupo1.lucaticket.ticketpaymentservice.model.RequestPaymentDto;
-import com.grupo1.lucaticket.ticketpaymentservice.model.ResponsePaymentDto;
-import com.grupo1.lucaticket.ticketpaymentservice.model.Ticket;
+import com.grupo1.lucaticket.ticketpaymentservice.model.ResponseTicketDto;
 import com.grupo1.lucaticket.ticketpaymentservice.model.dto.RequestEventDto;
-import com.grupo1.lucaticket.ticketpaymentservice.model.dto.ResponseTicketDto;
 import com.grupo1.lucaticket.ticketpaymentservice.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,13 +29,12 @@ public class PaymentService {
 
     public ResponseEntity<?> pasarelaDePago(RequestPaymentDto paymentDto, String validation) {
         if( validation.equals("OK")) {
-            Ticket ticket = Ticket.builder()
+            ResponseTicketDto responseTicketDto = ResponseTicketDto.builder()
                     .nombreEvento(paymentDto.getNombreEvento())
                     .precioEvento(paymentDto.getPrecioEvento())
                     .message(validation)
                     .build();
-            saveTicket(ticket);
-            return ResponseEntity.ok(ticket);
+            return ResponseEntity.ok(saveTicket(responseTicketDto));
         } else {
             return ResponseEntity.badRequest().body(validation);
         }
@@ -56,8 +52,8 @@ public class PaymentService {
         return restTemplate.postForObject("http://validation-service/validation", dto, String.class);
     }
 
-    private void saveTicket(Ticket ticket) {
-        restTemplate.postForObject("http://user/ticket/save", ticket, String.class);
+    private ResponseTicketDto saveTicket(ResponseTicketDto responseTicketDto) {
+        return restTemplate.postForObject("http://user/ticket/save", responseTicketDto, ResponseTicketDto.class);
     }
 
 
