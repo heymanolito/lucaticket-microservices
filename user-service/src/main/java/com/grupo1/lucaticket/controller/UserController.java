@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.grupo1.lucaticket.dto.CreateUserDto;
 import com.grupo1.lucaticket.dto.GetUserDto;
 import com.grupo1.lucaticket.dto.adapter.UserDtoConverter;
+import com.grupo1.lucaticket.exception.InvalidDataException;
 import com.grupo1.lucaticket.model.UserEntity;
 import com.grupo1.lucaticket.service.UserEntityService;
 
@@ -52,7 +54,12 @@ public class UserController {
 	@ApiResponse(responseCode = "404", description = "Error: No se ha podido anadir el user", content = @Content) })
 
     @PostMapping("/register")
-    public GetUserDto nuevoUsuario(@Valid @RequestBody CreateUserDto newUser) {
+    public GetUserDto nuevoUsuario(@RequestBody @Valid CreateUserDto newUser, BindingResult result) {
+    	log.info("------ create (POST)");
+		if (result.hasErrors()) {
+			log.info("------ User con errores  (POST)");
+			throw new InvalidDataException(result);
+		}
         return userDtoConverter.convertUserEntityToGetUserDto(userEntityService.nuevoUsuario(newUser));
 
     }
@@ -120,7 +127,6 @@ public class UserController {
     	log.info("MODIFICADO");
     	return ResponseEntity.ok(modified);
     }
-
 
 
 }
