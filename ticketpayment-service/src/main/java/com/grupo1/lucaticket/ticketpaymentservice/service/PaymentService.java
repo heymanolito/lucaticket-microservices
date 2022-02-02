@@ -1,9 +1,13 @@
 package com.grupo1.lucaticket.ticketpaymentservice.service;
 
 import com.grupo1.lucaticket.ticketpaymentservice.model.RequestPaymentDto;
+import com.grupo1.lucaticket.ticketpaymentservice.model.ResponsePaymentDto;
+import com.grupo1.lucaticket.ticketpaymentservice.model.ResponseTicketDosDto;
 import com.grupo1.lucaticket.ticketpaymentservice.model.ResponseTicketDto;
 import com.grupo1.lucaticket.ticketpaymentservice.model.dto.RequestEventDto;
 import com.grupo1.lucaticket.ticketpaymentservice.util.TokenUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,7 +18,7 @@ public class PaymentService {
 
     @Autowired
     private RestTemplate restTemplate;
-
+    private static final Logger log = LoggerFactory.getLogger(PaymentService.class);
 
     public RequestPaymentDto processPayment (String token, RequestPaymentDto request, int id) {
         return RequestPaymentDto.builder()
@@ -30,11 +34,17 @@ public class PaymentService {
     public ResponseEntity<?> pasarelaDePago(RequestPaymentDto paymentDto, String validation) {
         if( validation.equals("OK")) {
             ResponseTicketDto responseTicketDto = ResponseTicketDto.builder()
+                    .id_user(paymentDto.getId_user())
                     .nombreEvento(paymentDto.getNombreEvento())
                     .precioEvento(paymentDto.getPrecioEvento())
                     .message(validation)
                     .build();
-            return ResponseEntity.ok(saveTicket(responseTicketDto));
+            saveTicket(responseTicketDto);
+            ResponseTicketDosDto respuesta = ResponseTicketDosDto.builder()
+                    .nombreEvento(responseTicketDto.getNombreEvento())
+                    .precioEvento(responseTicketDto.getPrecioEvento())
+                    .message(responseTicketDto.getMessage()).build();
+            return ResponseEntity.ok(respuesta);
         } else {
             return ResponseEntity.badRequest().body(validation);
         }

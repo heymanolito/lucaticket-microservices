@@ -11,6 +11,7 @@ import lombok.*;
 @Builder
 public class ResponseTicketDto {
 
+    private Long id_user;
     private String nombreEvento;
     private Integer precioEvento;
     private String message;

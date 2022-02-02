@@ -17,9 +17,10 @@ public class Ticket {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nombreEvento;
-
+    private int precioEvento;
     @ManyToOne
     private UserEntity user;
 }

@@ -21,10 +21,15 @@ public class PaymentController {
     private PaymentService service;
 
     @PostMapping("{id}")
-    public ResponseEntity<?> comprarTicket(@RequestHeader("Authorization") String token, @RequestBody RequestPaymentDto request, @PathVariable int id) {
+    public ResponseEntity<?> comprarTicket(@RequestHeader("Authorization") String token,
+                                           @RequestBody RequestPaymentDto request,
+                                           @PathVariable int id) {
         RequestPaymentDto paymentDto = service.processPayment(token, request, id);
+        // Evento precio y nombre
         String validation = service.requestValidation(paymentDto);
+        // Validacion
         return service.pasarelaDePago(paymentDto, validation);
+        // Guardamos el ticket en base de datos
     }
 
 }
