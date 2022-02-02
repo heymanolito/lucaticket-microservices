@@ -131,27 +131,11 @@ public class EventServiceTest {
 		assertThat(expected).isEqualTo(lista.size());
 
 	}
-	/*
+	
+	
+	
+	
 	@Test
-	void shouldBeTheSameEventAfterModifyNothing() {
-		// Given
-		Integer[] rangoPrecios = { 10, 20 };
-		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
-
-		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
-				rangoPrecios, "hola", recinto, "Punk");
-		
-		//When
-		serviceTest.saveEvent(event);
-		serviceTest.saveEvent(event);
-		
-		
-		//Then
-		
-		assertThat(event)
-	}
-	*/
-
 	void shouldBeAnEmptyListWhenFindByNombre() {
 		// Given
 		Integer[] rangoPrecios = { 10, 20 };
@@ -159,12 +143,16 @@ public class EventServiceTest {
 
 		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
 				rangoPrecios, "hola", recinto, "Punk");
+		Event event2 = new Event(1, "pepe", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
+				rangoPrecios, "hola", recinto, "Punk");
 		// When
 		serviceTest.saveEvent(event);
+		serviceTest.saveEvent(event2);
 		int expected = 0;
 		List<EventResponse> lista = serviceTest.findByNombre("pepa");
 
 		// Then
+		System.out.println(lista);
 		assertThat(expected).isEqualTo(lista.size());
 	}
 

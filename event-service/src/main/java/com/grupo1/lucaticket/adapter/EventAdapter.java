@@ -20,6 +20,7 @@ public class EventAdapter {
         eventResponse.setNombreRecinto(event.getRecinto().getNombre());
         eventResponse.setGenero(event.getGenero());
         return eventResponse;
+        
     }
 
     public List<EventResponse> of(List<Event> events) {

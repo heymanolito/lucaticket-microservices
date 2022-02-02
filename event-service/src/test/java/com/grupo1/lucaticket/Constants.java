@@ -9,7 +9,7 @@ public class Constants {
     public static String EVENTS_BY_NOMBRE= EVENTS_ENDPOINT + "/nombre/{nombre}";
     public static String EVENTS_BY_GENERO= EVENTS_ENDPOINT + "/genero/{genero}";
     public static String DELETE_EVENTS= EVENTS_ENDPOINT + "/delete/{id}";
-    public static String EVENTS_UPDATE_ENDPOINT= EVENTS_ENDPOINT + "/update/{id}";
+    public static String EVENTS_UPDATE_ENDPOINT= EVENTS_ENDPOINT + "/update";
     public static String EVENTS_BY_CITY= EVENTS_ENDPOINT + "/recinto/{ciudad}";
 
 }

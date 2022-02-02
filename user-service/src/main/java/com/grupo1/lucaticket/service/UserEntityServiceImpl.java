@@ -11,11 +11,9 @@ import com.grupo1.lucaticket.repository.UserEntityRepository;
 import com.grupo1.lucaticket.util.UsernameGeneratorUtil;
 import lombok.RequiredArgsConstructor;
 
-import org.hibernate.id.UUIDGenerationStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -67,12 +65,13 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     public UserEntity nuevoUsuario(CreateUserDto newUser) {
-    	
+
     	
         if ( newUser.getPassword().contentEquals(newUser.getPassword2()) ) {
             UserEntity userEntity = UserEntity.builder()
                     .username(UsernameGeneratorUtil.generateUsername(newUser.getEmail()))
                     .password(passwordEncoder.encode(newUser.getPassword()))
+                    .password2(passwordEncoder.encode(newUser.getPassword()))
                     .fullName(newUser.getFullName())
                     .email(newUser.getEmail())
                     .roles(Stream.of(UserRole.USER).collect(Collectors.toSet())).build();

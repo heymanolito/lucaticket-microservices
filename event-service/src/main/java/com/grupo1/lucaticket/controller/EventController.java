@@ -163,10 +163,12 @@ public class EventController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
 			@ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun evento con este id", content = @Content) })
 	@PutMapping("/update")
+
 	public ResponseEntity<?> updateEvent(@RequestBody Event event) {
 		log.info("Antes de modificar el evento");
+
 		eventService.updateEvent(event);
-		log.info("DespuÃ©s de modificar el evento");
+		log.info("Despues de modificar el evento");
 		return ResponseEntity.ok(event);
 	}
 
