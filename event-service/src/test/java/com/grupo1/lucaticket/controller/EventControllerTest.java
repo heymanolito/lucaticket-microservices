@@ -1,6 +1,7 @@
 package com.grupo1.lucaticket.controller;
 
 import static com.grupo1.lucaticket.Constants.BASE_URL;
+import static com.grupo1.lucaticket.Constants.DELETE_EVENTS;
 import static com.grupo1.lucaticket.Constants.EVENTS_ADD_ENDPOINT;
 import static com.grupo1.lucaticket.Constants.EVENTS_BY_CITY;
 import static com.grupo1.lucaticket.Constants.EVENTS_BY_GENERO;
@@ -9,15 +10,14 @@ import static com.grupo1.lucaticket.Constants.EVENTS_ENDPOINT;
 import static com.grupo1.lucaticket.Constants.EVENTS_UPDATE_ENDPOINT;
 import static com.grupo1.lucaticket.Constants.ID_EVENTS_ENDPOINT;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.validation.BindingResult;
 
 import com.grupo1.lucaticket.model.Event;
 import com.grupo1.lucaticket.model.Recinto;
@@ -27,11 +27,6 @@ import io.restassured.http.ContentType;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class EventControllerTest {
-
-	@Autowired
-	EventController eventO;
-	
-	BindingResult result;
 
 	@DisplayName("GET | LISTAR EVENTOS")
 	@Test
@@ -52,17 +47,10 @@ public class EventControllerTest {
 	@DisplayName("DELETE | BORRAR EVENTO POR ID")
 	@Test
 	void shouldDeleteTheEvent() {
-		Integer[] rangoPrecios = { 10, 20 };
-		Recinto recinto = new Recinto(1, "Sala pepe", "Badalona", "Calle Jaume", 4000);
-
-		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
-				rangoPrecios, "hola", recinto, "copla");
-
-		
-		 given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(204)
-		.when().delete(EVENTS_ADD_ENDPOINT);
-
-		
+		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", "1").expect()
+				.statusCode(204).when().delete(DELETE_EVENTS);
+		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", 1)
+				.get(ID_EVENTS_ENDPOINT).then().extract().body().jsonPath();
 	}
 
 	@DisplayName("GET | FILTRAR EVENTOS POR GENERO")
@@ -96,9 +84,11 @@ public class EventControllerTest {
 		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
 				rangoPrecios, "hola", recinto, "copla");
 
-		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).post(EVENTS_ADD_ENDPOINT)
-				.getBody().prettyPrint();
+		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event)
+				.post(EVENTS_ADD_ENDPOINT);
 
+		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", "1")
+				.get(ID_EVENTS_ENDPOINT).then().body("id", equalTo(1)).extract().body().jsonPath().prettyPrint();
 	}
 
 	@DisplayName("PUT | MODIFICAR EVENTO")

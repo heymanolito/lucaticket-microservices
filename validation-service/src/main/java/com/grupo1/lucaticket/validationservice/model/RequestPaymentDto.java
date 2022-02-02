@@ -1,16 +1,17 @@
-package com.grupo1.lucaticket.ticketpaymentservice.model;
+package com.grupo1.lucaticket.validationservice.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Payment {
+public class RequestPaymentDto {
+
 
     private Long id_user;
     private String nombreEvento;
