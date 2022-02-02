@@ -2,6 +2,8 @@ package com.grupo1.lucaticket.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,7 @@ public class UserController {
 	@ApiResponse(responseCode = "404", description = "Error: No se ha podido anadir el user", content = @Content) })
 
     @PostMapping("/register")
-    public GetUserDto nuevoUsuario(@RequestBody CreateUserDto newUser) {
+    public GetUserDto nuevoUsuario(@Valid @RequestBody CreateUserDto newUser) {
         return userDtoConverter.convertUserEntityToGetUserDto(userEntityService.nuevoUsuario(newUser));
 
     }
