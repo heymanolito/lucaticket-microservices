@@ -1,5 +1,31 @@
 package com.grupo1.lucaticket.model;
 
+import java.io.Serial;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -7,21 +33,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
-import java.io.Serial;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
+import lombok.ToString;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +41,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder
 public class UserEntity implements UserDetails {
 
@@ -41,6 +54,7 @@ public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    
     @NotEmpty(message = "Username nulo o vacio")
 	@Size(min = 3, message = "User debe tener al menos 3 caracteres")
 	@Schema(name = "Username", description = "Username del usuario")
@@ -50,6 +64,11 @@ public class UserEntity implements UserDetails {
 	@Size(min = 3, message = "Contraseña corta debe tener al menos 3 caracteres")
 	@Schema(name = "Contraseña", description = "Contraseña del usuario" )
     private String password;
+    
+    @NotEmpty(message = "Contraseña corta, nula o vacia")
+	@Size(min = 3, message = "Contraseña corta debe tener al menos 3 caracteres")
+	@Schema(name = "Contraseña", description = "Contraseña del usuario" )
+    private String password2;
 
     @NotEmpty(message = "Nombre corto, nulo o vacio")
 	@Size(min = 3, message = "Nombre corto debe tener al menos 3 caracteres")

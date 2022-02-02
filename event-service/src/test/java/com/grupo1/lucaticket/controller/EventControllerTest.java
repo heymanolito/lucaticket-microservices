@@ -49,7 +49,7 @@ public class EventControllerTest {
 	void shouldDeleteTheEvent() {
 		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", "1").expect()
 				.statusCode(204).when().delete(DELETE_EVENTS);
-		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", 1)
+		given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).pathParam("id", "1")
 				.get(ID_EVENTS_ENDPOINT).then().extract().body().jsonPath();
 	}
 
