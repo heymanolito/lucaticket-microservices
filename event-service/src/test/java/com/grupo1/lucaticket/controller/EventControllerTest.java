@@ -17,10 +17,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.validation.BindingResult;
 
 import com.grupo1.lucaticket.model.Event;
 import com.grupo1.lucaticket.model.Recinto;
-import com.grupo1.lucaticket.service.EventService;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -29,7 +29,9 @@ import io.restassured.http.ContentType;
 public class EventControllerTest {
 
 	@Autowired
-	EventService eventO;
+	EventController eventO;
+	
+	BindingResult result;
 
 	@DisplayName("GET | LISTAR EVENTOS")
 	@Test
@@ -56,7 +58,6 @@ public class EventControllerTest {
 		Event event = new Event(1, "La pantoja", "hola", "adios", "GDSGDS", LocalDate.now(), LocalTime.now(),
 				rangoPrecios, "hola", recinto, "copla");
 
-		eventO.saveEvent(event);
 		
 		 given().baseUri(BASE_URL).log().everything().contentType(ContentType.JSON).body(event).expect().statusCode(204)
 		.when().delete(EVENTS_ADD_ENDPOINT);

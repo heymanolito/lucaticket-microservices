@@ -168,7 +168,7 @@ public class EventController {
 		log.info("Antes de modificar el evento");
 
 		eventService.updateEvent(event);
-		log.info("DespuÃ©s de modificar el evento");
+		log.info("Despues de modificar el evento");
 		return ResponseEntity.ok(event);
 	}
 
