@@ -44,6 +44,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
             }
+            log.info("HOLA ESTOY AQUí");
         } catch (Exception ex) {
             log.info("No se ha podido establecer la autenticación de usuario en el contexto de seguridad");
         }

@@ -23,7 +23,7 @@ public interface UserEntityService {
 
     List<GetUserDto> findAll();
 
-    void updateUser(UserEntity user);
+    UserEntity updateUser(CreateUserDto user);
 
 
 }

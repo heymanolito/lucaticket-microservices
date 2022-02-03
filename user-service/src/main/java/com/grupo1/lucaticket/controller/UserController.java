@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -52,6 +52,50 @@ public class UserController {
 
     }
 
+    @Operation(summary = "Listado de usuarios", description = "Muestra todos los usuarios disponibles", tags = {
+            "Usuarios"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Mostrados Usuarios", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = UserEntity.class))}),
+            @ApiResponse(responseCode = "404", description = "Error: No hay Usuarios", content = @Content)})
+
+    @GetMapping()
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> listUsers() {
+        List<GetUserDto> result = userEntityService.findAll();
+        return ResponseEntity.ok(result);
+    }
+
+    @Operation(summary = "Busca un usuario", description = "Sirve para buscar un usuario en la base de datos dado su id", tags = {
+            "id"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuario encontrado correctamente", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = UserEntity.class))}),
+            @ApiResponse(responseCode = "404", description = "Error: No se ha encotrado el usuario", content = @Content)})
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> findUserById(@PathVariable Long id) {
+        log.info("****Antes de encontrar el user");
+        UserEntity found = userEntityService.findById(id).orElseThrow();
+        log.info("Usuario encontrado");
+        return ResponseEntity.ok(found);
+    }
+
+
+    @Operation(summary = "Modifica un usuario", description = "Sirve para modificar un usuario de la base de datos dado su id", tags = {
+            "id"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Usario modificado correctamente", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = UserEntity.class))}),
+            @ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun usuario con este id", content = @Content)})
+
+    @PutMapping("/update")
+    @PreAuthorize("hasRole('ADMIN')")
+    public GetUserDto updateUser(@RequestBody CreateUserDto user) {
+        return userDtoConverter.convertUserEntityToGetUserDto(userEntityService.updateUser(user));
+    }
+
 
     @Operation(summary = "Elimina un user", description = "Sirve para eliminar un usuario de la base de datos dado su id", tags = {
             "id"})
@@ -70,52 +114,6 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Listado de usuarios", description = "Muestra todos los usuarios disponibles", tags = {
-            "Usuarios"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Mostrados Usuarios", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = UserEntity.class))}),
-            @ApiResponse(responseCode = "404", description = "Error: No hay Usuarios", content = @Content)})
-
-    @GetMapping()
-    public ResponseEntity<?> listUsers() {
-        List<GetUserDto> result = userEntityService.findAll();
-        return ResponseEntity.ok(result);
-    }
-
-
-    @Operation(summary = "Busca un usuario", description = "Sirve para buscar un usuario en la base de datos dado su id", tags = {
-            "id"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuario encontrado correctamente", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = UserEntity.class))}),
-            @ApiResponse(responseCode = "404", description = "Error: No se ha encotrado el usuario", content = @Content)})
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findUserById(@PathVariable Long id) {
-        log.info("****Antes de encontrar el user");
-        UserEntity found = userEntityService.findById(id).orElseThrow();
-        log.info("Usuario encontrado");
-        return ResponseEntity.ok(found);
-    }
-
-
-    @Operation(summary = "Modifica un usuario", description = "Sirve para modificar un usuario de la base de datos dado su id", tags = {
-            "id"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Usario modificado correctamente", content = {
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = UserEntity.class))}),
-            @ApiResponse(responseCode = "404", description = "Error: No se ha encotrado ningun usuario con este id", content = @Content)})
-
-    @PutMapping("/update")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> updateUser(@RequestBody UserEntity user) {
-        log.info("Antes de modificar el evento");
-
-        userEntityService.updateUser(user);
-        log.info("MODIFICADO");
-        return ResponseEntity.ok(user);
-    }
 
 
 }
