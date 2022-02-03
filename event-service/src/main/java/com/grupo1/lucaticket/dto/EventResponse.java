@@ -14,14 +14,14 @@ import java.time.LocalTime;
 @ToString
 public class EventResponse implements Serializable {
 
-	@Serial
-	private static final long serialVersionUID = 1L;
-	private int id;
-	private String nombre;
-	private LocalDate fechaEvento;
-	private LocalTime horaEvento;
-	private String nombreRecinto;
-	private String ciudadRecinto;
-	private String genero;
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String nombre;
+    private LocalDate fechaEvento;
+    private LocalTime horaEvento;
+    private String nombreRecinto;
+    private String ciudadRecinto;
+    private String genero;
 
 }

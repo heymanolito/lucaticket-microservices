@@ -1,5 +1,7 @@
 package com.grupo1.lucaticket.security;
 
+import com.grupo1.lucaticket.security.jwt.JwtAuthorizationFilter;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.grupo1.lucaticket.security.jwt.JwtAuthorizationFilter;
 
 import lombok.RequiredArgsConstructor;
 

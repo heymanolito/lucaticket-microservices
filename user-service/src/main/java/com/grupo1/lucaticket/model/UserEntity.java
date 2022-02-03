@@ -35,7 +35,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
 @Entity
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
@@ -53,17 +52,17 @@ public class UserEntity implements UserDetails {
     private static final long serialVersionUID = 6189678452627071360L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     @NotEmpty(message = "Username nulo o vacio")
-	@Size(min = 3, message = "User debe tener al menos 3 caracteres")
-	@Schema(name = "Username", description = "Username del usuario")
+    @Size(min = 3, message = "User debe tener al menos 3 caracteres")
+    @Schema(name = "Username", description = "Username del usuario")
     private String username;
 
     @NotEmpty(message = "Contraseña nula o vacia")
-	@Size(min = 3, message = "Contraseña corta, debe tener al menos 3 caracteres")
-	@Schema(name = "Contraseña", description = "Contraseña del usuario" )
+    @Size(min = 3, message = "Contraseña corta, debe tener al menos 3 caracteres")
+    @Schema(name = "Contraseña", description = "Contraseña del usuario")
     private String password;
     
     @NotEmpty(message = "Contraseña corta, nula o vacia")
@@ -72,17 +71,17 @@ public class UserEntity implements UserDetails {
     private String password2;
 
     @NotEmpty(message = "Nombre nulo o vacio")
-	@Size(min = 3, message = "Nombre corto debe tener al menos 3 caracteres")
-	@Schema(name = "Nombre completo", description = "Nombre y apellidos del usuario" )
+    @Size(min = 3, message = "Nombre corto debe tener al menos 3 caracteres")
+    @Schema(name = "Nombre completo", description = "Nombre y apellidos del usuario")
     private String fullName;
 
     @NotEmpty(message = "Email nulo o vacio")
-	@Size(min = 3, message = "Email corto debe tener al menos 3 caracteres")
-	@Schema(name = "Email", description = "Email del usuario" )
+    @Size(min = 3, message = "Email corto debe tener al menos 3 caracteres")
+    @Schema(name = "Email", description = "Email del usuario")
     @Column(unique = true)
     private String email;
 
-    
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;

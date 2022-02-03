@@ -1,9 +1,7 @@
 package com.grupo1.lucaticket.service;
 
-import com.grupo1.lucaticket.controller.AuthenticationController;
 import com.grupo1.lucaticket.dto.RequestEventDto;
 import com.grupo1.lucaticket.model.Ticket;
-import com.grupo1.lucaticket.model.UserEntity;
 import com.grupo1.lucaticket.repository.TicketRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +15,15 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class TicketServiceImpl implements TicketService {
 
+    private static final Logger log = LoggerFactory.getLogger(TicketServiceImpl.class);
     @Autowired
     private TicketRepository repository;
-
     @Autowired
     private UserEntityService userService;
 
-    private static final Logger log = LoggerFactory.getLogger(TicketServiceImpl.class);
-
-    public RequestEventDto saveTicket(RequestEventDto eventDto) {
-       log.info("---[SERVICE] GUARDANDO TICKET..." + repository.save(convertirTicket(eventDto)));
-       return RequestEventDto.builder()
+    public ResponseEventDto saveTicket(RequestEventDto eventDto) {
+        log.info("---[SERVICE] GUARDANDO TICKET..." + repository.save(convertirTicket(eventDto)));
+        return ResponseEventDto.builder()
                 .nombreEvento(eventDto.getNombreEvento())
                 .precioEvento(eventDto.getPrecioEvento())
                 .message(eventDto.getMessage()).build();

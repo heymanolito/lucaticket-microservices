@@ -1,6 +1,6 @@
 package com.grupo1.lucaticket.ticketpaymentservice.controller;
 
-import com.grupo1.lucaticket.ticketpaymentservice.model.RequestPaymentDto;
+import com.grupo1.lucaticket.ticketpaymentservice.model.PaymentDto;
 import com.grupo1.lucaticket.ticketpaymentservice.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -22,9 +22,9 @@ public class PaymentController {
 
     @PostMapping("{id}")
     public ResponseEntity<?> comprarTicket(@RequestHeader("Authorization") String token,
-                                           @RequestBody RequestPaymentDto request,
+                                           @RequestBody PaymentDto request,
                                            @PathVariable int id) {
-        RequestPaymentDto paymentDto = service.processPayment(token, request, id);
+        PaymentDto paymentDto = service.processPayment(token, request, id);
         // Evento precio y nombre
         String validation = service.requestValidation(paymentDto);
         // Validacion

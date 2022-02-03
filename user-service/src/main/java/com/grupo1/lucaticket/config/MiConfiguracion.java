@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableJpaAuditing
 public class MiConfiguracion {
-    private static final Logger log = LoggerFactory.getLogger(MiConfiguracion .class);
+    private static final Logger log = LoggerFactory.getLogger(MiConfiguracion.class);
 
     @Bean
     public ModelMapper modelMapper() {

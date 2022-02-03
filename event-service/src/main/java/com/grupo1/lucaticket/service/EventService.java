@@ -15,14 +15,14 @@ public interface EventService {
     Optional<Event> findById(int id);
 
     void deleteAll();
-    
+
     List<EventResponse> findByNombre(String nombre);
 
     List<EventResponse> findByGenero(String genero);
-    
+
     List<EventResponse> findByCiudad(String ciudad);
 
     void delete(Event event);
 
-	void updateEvent(Event event);
+    void updateEvent(Event event);
 }

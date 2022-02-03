@@ -1,12 +1,10 @@
 package com.grupo1.lucaticket.ticketpaymentservice.util;
 
-import com.grupo1.lucaticket.ticketpaymentservice.controller.PaymentController;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

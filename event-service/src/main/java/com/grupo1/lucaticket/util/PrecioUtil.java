@@ -1,7 +1,5 @@
 package com.grupo1.lucaticket.util;
 
-import java.util.Random;
-
 public class PrecioUtil {
 
     public static Integer getPrecioRandom(Integer[] precio) {
