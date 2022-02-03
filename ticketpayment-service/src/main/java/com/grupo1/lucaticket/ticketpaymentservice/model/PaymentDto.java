@@ -1,7 +1,10 @@
 package com.grupo1.lucaticket.ticketpaymentservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,6 +19,7 @@ public class PaymentDto {
     private Integer precioEvento;
     private String fullName;
     private Integer numTarjeta;
-    private LocalDateTime fechaCaducidad;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate fechaCaducidad;
     private Integer CVV;
 }

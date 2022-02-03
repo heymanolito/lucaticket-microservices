@@ -30,35 +30,37 @@ class Event {
     @Size(min = 3, message = "Nombre debe tener al menos 3 caracteres")
     @Schema(name = "Nombre", description = "Nombre del evento")
     private String nombre;
+
     @NotEmpty(message = "Descripcion corta nula o vacia")
     @Size(min = 3, message = "Descripcion corta debe tener al menos 3 caracteres")
     @Schema(name = "Descripcion corta", description = "Datos resumidos ")
     private String descripcionCorta;
+
     @NotEmpty(message = "Descripcion extendida nula o vacia")
     @Schema(name = "Descripcion extendida", description = "Datos completos ")
     private String descripcionExtendida;
+
     @Schema(name = "Foto", description = "Foto del evento ")
     private String foto;
-    // @NotEmpty
-    // @Size(min=10, max=10)
+
     @Schema(name = "Fecha del Evento", description = "Fecha del evento ")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fechaEvento;
-    // @NotEmpty
-    // @Size(min=5, max=5)
+
+
     @Schema(name = "Hora de evento", description = "Fecha del evento")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime horaEvento;
+
     @NotEmpty(message = "Rango precio nulo o vacio")
     @Schema(name = "Rango precios", description = "Rango de precios ")
     private Integer[] rangoPrecios = new Integer[2];
-    @NotEmpty(message = "Politica de acceso nula o vacia")
 
+    @NotEmpty(message = "Politica de acceso nula o vacia")
     @Size(min = 6, message = "Politica de acceso debe tener al menos 6 caracteres")
     @Schema(name = "Politica de acceso", description = "Politica de acceso ")
     private String politicaAcceso;
 
-    // @NotEmpty
     @Schema(name = "Recinto", description = "Recinto del evento")
     private Recinto recinto;
     @NotEmpty(message = "Genero nulo o vacio")
