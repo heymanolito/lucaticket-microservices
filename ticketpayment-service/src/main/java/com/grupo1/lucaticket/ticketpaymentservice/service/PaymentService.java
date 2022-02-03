@@ -27,13 +27,17 @@ public class PaymentService {
 	}
 
 	public ResponseEntity<?> pasarelaDePago(PaymentDto paymentDto, String validation) {
-		if (validation.equals("OK")) {
+		log.info("validation: " + validation);
+		if (validation.equals("La transaccion se ha realizado satisfactoriamente")) {
 			TicketDto ticketDto = TicketDto.builder().id_user(paymentDto.getId_user())
 					.nombreEvento(paymentDto.getNombreEvento()).precioEvento(paymentDto.getPrecioEvento())
 					.message(validation).build();
 			saveTicket(ticketDto);
-			TicketDtoNoId respuesta = TicketDtoNoId.builder().nombreEvento(ticketDto.getNombreEvento())
-					.precioEvento(ticketDto.getPrecioEvento()).message(ticketDto.getMessage()).build();
+			TicketDtoNoId respuesta = TicketDtoNoId.builder()
+					.nombreEvento(ticketDto.getNombreEvento())
+					.precioEvento(ticketDto.getPrecioEvento())
+					.message(ticketDto.getMessage()).build();
+			log.info("respuesta body" + respuesta);
 			return ResponseEntity.ok(respuesta);
 		} else {
 			return ResponseEntity.badRequest().body(validation);
@@ -49,7 +53,7 @@ public class PaymentService {
 	}
 
 	public String requestValidation(PaymentDto dto) {
-		return restTemplate.postForObject("http://validation-service/validation", dto, String.class);
+		return restTemplate.postForObject("http://validation/validation", dto, String.class);
 	}
 
 	private TicketDto saveTicket(TicketDto ticketDto) {
