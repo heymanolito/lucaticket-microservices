@@ -1,11 +1,16 @@
 package com.grupo1.lucaticket.ticketpaymentservice.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.validation.constraints.Size;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -18,7 +23,8 @@ public class PaymentDto {
     private String nombreEvento;
     private Integer precioEvento;
     private String fullName;
-    private Integer numTarjeta;
+    @Size(min=16, max=16,message="Pon un numero de targeta valido")
+    private Long numTarjeta;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fechaCaducidad;
     private Integer CVV;

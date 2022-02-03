@@ -6,6 +6,8 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Size;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +19,8 @@ public class Payment {
     private String nombreEvento;
     private Integer precioEvento;
     private String fullName;
-    private Integer numTarjeta;
+    @Size(min=16, max=16)
+    private Long numTarjeta;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fechaCaducidad;
     private Integer CVV;
