@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -27,6 +30,7 @@ import java.util.stream.Collectors;
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -46,18 +50,18 @@ public class UserEntity implements UserDetails {
 	@Schema(name = "Username", description = "Username del usuario")
     private String username;
 
-    @NotEmpty(message = "Contraseña corta, nula o vacia")
-	@Size(min = 3, message = "Contraseña corta debe tener al menos 3 caracteres")
+    @NotEmpty(message = "Contraseña nula o vacia")
+	@Size(min = 3, message = "Contraseña corta, debe tener al menos 3 caracteres")
 	@Schema(name = "Contraseña", description = "Contraseña del usuario" )
     private String password;
 
-    @NotEmpty(message = "Nombre corto, nulo o vacio")
+    @NotEmpty(message = "Nombre nulo o vacio")
 	@Size(min = 3, message = "Nombre corto debe tener al menos 3 caracteres")
 	@Schema(name = "Nombre completo", description = "Nombre y apellidos del usuario" )
     private String fullName;
 
-    @NotEmpty(message = "email corto, nulo o vacio")
-	@Size(min = 3, message = "Contraseña corto debe tener al menos 3 caracteres")
+    @NotEmpty(message = "Email nulo o vacio")
+	@Size(min = 3, message = "Email corto debe tener al menos 3 caracteres")
 	@Schema(name = "Email", description = "Email del usuario" )
     @Column(unique = true)
     private String email;

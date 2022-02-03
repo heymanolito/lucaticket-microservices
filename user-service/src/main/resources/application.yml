@@ -1,8 +1,4 @@
-### Spring properties
-
 spring:
-
-  # Service registers under this name
   application:
     name: user
   config:

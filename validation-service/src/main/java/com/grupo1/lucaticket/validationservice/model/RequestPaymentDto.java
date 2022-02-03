@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Builder
 public class RequestPaymentDto {
 
-
     private Long id_user;
     private String nombreEvento;
     private Integer precioEvento;

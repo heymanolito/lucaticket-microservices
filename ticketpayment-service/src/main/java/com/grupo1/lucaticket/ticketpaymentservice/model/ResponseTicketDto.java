@@ -9,8 +9,9 @@ import lombok.*;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Ticket {
+public class ResponseTicketDto {
 
+    private Long id_user;
     private String nombreEvento;
     private Integer precioEvento;
     private String message;

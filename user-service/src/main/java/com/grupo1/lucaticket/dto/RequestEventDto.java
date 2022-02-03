@@ -9,6 +9,8 @@ import lombok.*;
 @Builder
 public class RequestEventDto {
 
+    private Long id_user;
     private String nombreEvento;
     private Integer precioEvento;
+    private String message;
 }

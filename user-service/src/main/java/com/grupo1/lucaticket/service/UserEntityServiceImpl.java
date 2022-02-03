@@ -15,6 +15,7 @@ import org.hibernate.id.UUIDGenerationStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,7 +67,8 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     public UserEntity nuevoUsuario(CreateUserDto newUser) {
-
+    	
+    	
         if ( newUser.getPassword().contentEquals(newUser.getPassword2()) ) {
             UserEntity userEntity = UserEntity.builder()
                     .username(UsernameGeneratorUtil.generateUsername(newUser.getEmail()))
