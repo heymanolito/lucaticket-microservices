@@ -106,8 +106,14 @@ public class UserEntityServiceImpl implements UserEntityService {
 
 
     @Override
-    public void updateUser(UserEntity user) {
-        repositorio.save(user);
+    public UserEntity updateUser (CreateUserDto user) {
+        UserEntity newUser = repositorio.findByEmail(user.getEmail()).orElseThrow();
+        newUser.setUsername(UsernameGeneratorUtil.generateUsername(user.getEmail()));
+        newUser.setFullName(user.getFullName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+        newUser.setRoles(Stream.of(UserRole.USER).collect(Collectors.toSet()));
+        return repositorio.save(newUser);
     }
 
 
