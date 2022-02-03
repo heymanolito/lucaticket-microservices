@@ -1,6 +1,5 @@
 package com.grupo1.lucaticket.ticketpaymentservice.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;

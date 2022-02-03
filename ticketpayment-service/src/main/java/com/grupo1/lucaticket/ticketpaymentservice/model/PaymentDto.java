@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ResponsePaymentDto {
+public class PaymentDto {
 
     private Long id_user;
     private String nombreEvento;

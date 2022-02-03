@@ -1,14 +1,8 @@
 package com.grupo1.lucaticket.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,10 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
 import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -43,30 +35,30 @@ public class UserEntity implements UserDetails {
     private static final long serialVersionUID = 6189678452627071360L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotEmpty(message = "Username nulo o vacio")
-	@Size(min = 3, message = "User debe tener al menos 3 caracteres")
-	@Schema(name = "Username", description = "Username del usuario")
+    @Size(min = 3, message = "User debe tener al menos 3 caracteres")
+    @Schema(name = "Username", description = "Username del usuario")
     private String username;
 
     @NotEmpty(message = "Contraseña nula o vacia")
-	@Size(min = 3, message = "Contraseña corta, debe tener al menos 3 caracteres")
-	@Schema(name = "Contraseña", description = "Contraseña del usuario" )
+    @Size(min = 3, message = "Contraseña corta, debe tener al menos 3 caracteres")
+    @Schema(name = "Contraseña", description = "Contraseña del usuario")
     private String password;
 
     @NotEmpty(message = "Nombre nulo o vacio")
-	@Size(min = 3, message = "Nombre corto debe tener al menos 3 caracteres")
-	@Schema(name = "Nombre completo", description = "Nombre y apellidos del usuario" )
+    @Size(min = 3, message = "Nombre corto debe tener al menos 3 caracteres")
+    @Schema(name = "Nombre completo", description = "Nombre y apellidos del usuario")
     private String fullName;
 
     @NotEmpty(message = "Email nulo o vacio")
-	@Size(min = 3, message = "Email corto debe tener al menos 3 caracteres")
-	@Schema(name = "Email", description = "Email del usuario" )
+    @Size(min = 3, message = "Email corto debe tener al menos 3 caracteres")
+    @Schema(name = "Email", description = "Email del usuario")
     @Column(unique = true)
     private String email;
 
-    
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;

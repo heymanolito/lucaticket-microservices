@@ -1,6 +1,5 @@
 package com.grupo1.lucaticket.security;
 
-import com.grupo1.lucaticket.controller.AuthenticationController;
 import com.grupo1.lucaticket.security.jwt.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

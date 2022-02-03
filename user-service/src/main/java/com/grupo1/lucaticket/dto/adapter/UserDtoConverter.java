@@ -21,6 +21,7 @@ public class UserDtoConverter {
                         .collect(Collectors.toSet())
                 ).build();
     }
+
     public List<GetUserDto> of(List<UserEntity> user) {
         return user.stream().map(this::convertUserEntityToGetUserDto).collect(Collectors.toList());
     }

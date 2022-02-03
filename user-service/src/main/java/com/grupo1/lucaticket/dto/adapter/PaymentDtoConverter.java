@@ -1,7 +1,7 @@
 package com.grupo1.lucaticket.dto.adapter;
 
-import com.grupo1.lucaticket.dto.RequestEventDto;
 import com.grupo1.lucaticket.dto.PaymentDto;
+import com.grupo1.lucaticket.dto.RequestEventDto;
 
 public class PaymentDtoConverter {
 

@@ -2,7 +2,7 @@
 #Del 8-9 "No Ok"
 Feature: Comprar entrada
 
-  Background: 
+  Background:
     Given Un evento
 
   Scenario: Comprar entrada
@@ -13,7 +13,7 @@ Feature: Comprar entrada
     When Usuario compra el tiket y no tiene dinero
     Then El metodo comprar devuelve el mensaje NO OK
 		#Then Devuelve una InvalidCurrencyException
-  
+
   Scenario: Comprar entrada
     When Usuario compra el tiket y tiene caducada la fecha de caducidad
     Then Devuelve una  ExpiryDateNotValidException
